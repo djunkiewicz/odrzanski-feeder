@@ -7,8 +7,10 @@ const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+require("./routes/articlesRoutes")(app);
+
 app.get("/", (req, res) => {
-  res.send("Initial app");
+  res.send("home");
 });
 
 app.listen(port, () => {
