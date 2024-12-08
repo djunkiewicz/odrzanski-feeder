@@ -2,6 +2,12 @@
 
 <div class="container">
   <h1>Articles page</h1>
+  <% if(locals.articles) { %>
+  <p><%= articles%></p>
+  <div class="articles-container">Aktualności:</div>
+  <% } else { %>
+  <p>No articles available</p>
+  <% }; %>
 </div>
 
 <%- include("./partials/footer.ejs")%>

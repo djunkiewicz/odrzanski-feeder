@@ -1,8 +1,8 @@
 const articlesRepository = require("../repositories/articlesRepository");
 
-async function testController() {
-  const result = await articlesRepository.testRepository();
-  return result;
+async function getAllArticles() {
+  const result = await articlesRepository.getAllArticles();
+  return JSON.stringify(result);
 }
 
-module.exports = { testController };
+module.exports = { getAllArticles };

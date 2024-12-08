@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const env = require("dotenv");
 env.config();
+const articlesController = require("./controllers/articlesController");
 
 const port = 3000;
 const app = express();
@@ -12,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require("./routes/articlesRoutes")(app);
 
 app.get("/", async (req, res) => {
-  res.render("articles.ejs");
+  const articles = await articlesController.getAllArticles();
+  res.render("articles.ejs", { articles: articles });
 });
 
 app.listen(port, () => {

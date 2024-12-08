@@ -1,9 +1,9 @@
 const db = require("../config/db");
 const pool = db.promisePool;
 
-async function testRepository() {
-  const result = await pool.query("SELECT * FROM articles");
-  return result;
+async function getAllArticles() {
+  const [rows, fields] = await pool.query("SELECT * FROM articles");
+  return rows;
 }
 
-module.exports = { testRepository };
+module.exports = { getAllArticles };
