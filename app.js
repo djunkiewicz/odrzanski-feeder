@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const env = require("dotenv");
+env.config();
 
 const port = 3000;
 const app = express();
-env.config();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
