@@ -7,15 +7,33 @@
   <% } else { %>
   <p>No articles available</p>
   <% }; %>
+  <div id="pagination-container"></div>
 </div>
 
 <script src="/components/articleCard.js"></script>
+<script src="/pagination.js"></script>
+<link rel="stylesheet" href="/styles/pagination.css" />
 <script>
   const articlesList = <%- articles%>;
-  articlesList.forEach(element => {
-    const article = new Article(element);
-    $("#articles-container").append(article.getCard());
-  });
+
+  function renderSinglePage(selectedArticles) {
+    $("#articles-container").empty();
+    selectedArticles.forEach(element => {
+      const article = new Article(element);
+      $("#articles-container").append(article.getCard());
+    });
+  }
+
+  $('#pagination-container').pagination({
+    dataSource: articlesList,
+    pageSize: 6,
+    className: 'paginationjs-big',
+    showGoInput: true,
+    showGoButton: true,
+    callback: function(data, pagination) {
+      renderSinglePage(data);
+    }
+  })
 </script>
 
 <%- include("./partials/footer.ejs")%>
