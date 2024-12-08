@@ -3,11 +3,19 @@
 <div class="container">
   <h1>Articles page</h1>
   <% if(locals.articles) { %>
-  <p><%= articles%></p>
-  <div class="articles-container">Aktualności:</div>
+  <div id="articles-container">Aktualności:</div>
   <% } else { %>
   <p>No articles available</p>
   <% }; %>
 </div>
+
+<script src="/components/articleCard.js"></script>
+<script>
+  const articlesList = <%- articles%>;
+  articlesList.forEach(element => {
+    const article = new Article(element);
+    $("#articles-container").append(article.getCard());
+  });
+</script>
 
 <%- include("./partials/footer.ejs")%>
