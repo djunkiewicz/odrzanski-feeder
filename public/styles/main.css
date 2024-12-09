@@ -9,3 +9,11 @@ body {
 main {
   flex: 1;
 }
+
+.article-card {
+  background-color: rgb(142, 207, 242);
+}
+
+.article-card img {
+  height: 400px;
+}
