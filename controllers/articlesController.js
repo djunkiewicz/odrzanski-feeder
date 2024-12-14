@@ -7,7 +7,6 @@ async function getAllArticles() {
   for (const article of result) {
     article.photo_paths = await getPhotoPaths(article.gallery_path);
   }
-  console.log(result);
   return JSON.stringify(result);
 }
 
