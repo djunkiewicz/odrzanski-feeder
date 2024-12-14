@@ -22,6 +22,9 @@ class Article {
     const articleCard = document.createElement("div");
     articleCard.classList.add("article-card");
 
+    const link = document.createElement("a");
+    link.href = `article/${this.id}`;
+
     const title = document.createElement("h2");
     title.textContent = this.name;
 
@@ -41,7 +44,34 @@ class Article {
     articleCard.appendChild(date);
     articleCard.appendChild(image);
     articleCard.appendChild(content);
+    link.appendChild(articleCard);
 
-    return articleCard;
+    return link;
+  }
+
+  getDetailedPage() {
+    const container = document.createElement("div");
+
+    const title = document.createElement("h2");
+    title.textContent = this.name;
+
+    const date = document.createElement("h3");
+    date.textContent = this.creationDate.toLocaleDateString(
+      "pl-PL",
+      dateOptions
+    );
+
+    const image = document.createElement("img");
+    image.src = this.photoPaths[0];
+
+    const content = document.createElement("p");
+    content.textContent = this.content;
+
+    container.appendChild(title);
+    container.appendChild(date);
+    container.appendChild(image);
+    container.appendChild(content);
+
+    return container;
   }
 }

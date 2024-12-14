@@ -1,0 +1,19 @@
+<%- include("./partials/header.ejs")%>
+
+<div class="container">
+  <% if(locals.article) { %>
+  <div id="single-article-container"></div>
+  <% } else { %>
+  <p>Article doesn't exist</p>
+  <% }; %>
+</div>
+
+<script src="/components/article.js"></script>
+<script>
+  const articleJSON = <%- article%>;
+  const article = new Article(articleJSON);
+  console.log(article);
+  $("#single-article-container").append(article.getDetailedPage());
+</script>
+
+<%- include("./partials/footer.ejs")%>

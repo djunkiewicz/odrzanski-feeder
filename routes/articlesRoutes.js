@@ -5,4 +5,10 @@ module.exports = function (app) {
     const articles = await articlesController.getAllArticles();
     res.render("articles.ejs", { articles: articles });
   });
+
+  app.get("/article/:id", async (req, res) => {
+    const articleId = req.params.id;
+    const article = await articlesController.getArticleById(articleId);
+    res.render("singleArticle.ejs", { article: article });
+  });
 };
