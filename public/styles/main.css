@@ -23,5 +23,9 @@ img {
 }
 
 /* DO NOT EDIT - START --- Single article images slider */
-
+.carousel img {
+  object-fit: contain;
+  height: auto;
+  max-height: 750px;
+}
 /* DO NOT EDIT - END */
