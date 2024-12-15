@@ -67,10 +67,18 @@ class Article {
     const content = document.createElement("p");
     content.textContent = this.content;
 
+    const returnButton = document.createElement("a");
+    returnButton.classList.add("btn", "btn-primary");
+    returnButton.textContent = "Powrót do aktualności";
+    returnButton.onclick = function () {
+      history.back();
+    };
+
     container.appendChild(title);
     container.appendChild(date);
     container.appendChild(image);
     container.appendChild(content);
+    container.appendChild(returnButton);
 
     return container;
   }
