@@ -26,6 +26,12 @@ img {
 .carousel img {
   object-fit: contain;
   height: auto;
+  height: 750px;
   max-height: 750px;
 }
+
+.carousel {
+  width: 80%;
+}
+
 /* DO NOT EDIT - END */
