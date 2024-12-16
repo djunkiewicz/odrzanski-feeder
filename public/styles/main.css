@@ -33,5 +33,8 @@ img {
 .carousel {
   width: 80%;
 }
+.carousel-item {
+  transition: transform 0.5s ease-in-out, opacity 1.3s ease;
+}
 
 /* DO NOT EDIT - END */
