@@ -3,9 +3,75 @@
 <div class="container">
   <h1>Schedule page</h1>
   <% if(locals.competitions) { %>
-  <div id="competitions-container">Aktualności:</div>
+  <div id="competitions-container">
+    <form class="" novalidate="">
+      <div class="row g-3">
+
+        <div class="col-md-4">
+          <label for="country" class="form-label">Sezon</label>
+          <select class="form-select" id="country" required="">
+            <option value="">Wybierz...</option>
+            <option>2024</option>
+            <option>2023</option>
+            <option>Wszystko</option>
+          </select>
+          <div class="invalid-feedback">
+            Wybierz sezon
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Dyscyplina</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check1" checked>
+            <label class="form-check-label" for="check1">
+              Feeder
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check2" checked>
+            <label class="form-check-label" for="check2">
+              Spławik
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check3" checked>
+            <label class="form-check-label" for="check3">
+              Spinning
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Kategoria</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check1" checked>
+            <label class="form-check-label" for="check1">
+              Kołowe
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check2">
+            <label class="form-check-label" for="check2">
+              Okręgowe
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check3" checked>
+            <label class="form-check-label" for="check3">
+              Klubowe - "Odrzański Feeder"
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <button class="w-100 btn btn-primary btn-lg" type="submit">SZUKAJ</button>
+    </form>
+  </div>
   <% } else { %>
-  <p>No articles available</p>
+  <p>Brak dostępnego harmonogramu zawodów</p>
   <% }; %>
 </div>
 
@@ -15,7 +81,6 @@
   competitionsList.forEach(item => {
     const tableRow = document.createElement("li");
     tableRow.textContent = JSON.stringify(item);
-    console.log(item);
     table.appendChild(tableRow);
   })
   $("#competitions-container").append(table);
