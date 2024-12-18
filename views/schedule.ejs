@@ -69,6 +69,22 @@
 
       <button class="w-100 btn btn-primary btn-lg" type="submit">SZUKAJ</button>
     </form>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">lp.</th>
+          <th scope="col">Nazwa</th>
+          <th scope="col">Dyscyplina</th>
+          <th scope="col">Miejsce</th>
+          <th scope="col">Kategoria</th>
+          <th scope="col">Termin</th>
+          <th scope="col">Godzina zbiórki</th>
+          <th scope="col">Uwagi</th>
+        </tr>
+      </thead>
+      <tbody id="competitions-table-body">
+      </tbody>
+    </table>
   </div>
   <% } else { %>
   <p>Brak dostępnego harmonogramu zawodów</p>
@@ -78,12 +94,35 @@
 <script>
   const competitionsList = <%- competitions%>;
   const table = document.createElement("ul");
-  competitionsList.forEach(item => {
-    const tableRow = document.createElement("li");
-    tableRow.textContent = JSON.stringify(item);
-    table.appendChild(tableRow);
+  competitionsList.forEach((item, index) => {
+    const tempItem = document.createElement("tr");
+    const part1 = document.createElement("th");
+    part1.setAttribute("scope", "row");
+    part1.textContent = index;
+    const part2 = document.createElement("td");
+    part2.textContent = item.name;
+    const part3 = document.createElement("td");
+    part3.textContent = "dyscyplina - TODO";
+    const part4 = document.createElement("td");
+    part4.textContent = item.location_name;
+    const part5 = document.createElement("td");
+    part5.textContent = item.scope;
+    const part6 = document.createElement("td");
+    part6.textContent = item.event_date;
+    const part7 = document.createElement("td");
+    part7.textContent = item.event_time;
+    const part8 = document.createElement("td");
+    part8.textContent = item.notes;
+    tempItem.appendChild(part1);
+    tempItem.appendChild(part2);
+    tempItem.appendChild(part3);
+    tempItem.appendChild(part4);
+    tempItem.appendChild(part5);
+    tempItem.appendChild(part6);
+    tempItem.appendChild(part7);
+    tempItem.appendChild(part8);
+    $("#competitions-table-body").append(tempItem);
   })
-  $("#competitions-container").append(table);
 </script>
 
 <%- include("./partials/footer.ejs")%>
