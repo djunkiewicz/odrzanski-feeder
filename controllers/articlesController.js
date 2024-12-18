@@ -1,4 +1,3 @@
-const path = require("node:path");
 const articlesRepository = require("../repositories/articlesRepository");
 const fs = require("node:fs/promises");
 

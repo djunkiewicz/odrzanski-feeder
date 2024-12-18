@@ -11,6 +11,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes/articlesRoutes")(app);
+require("./routes/competitionsRoutes")(app);
 
 app.get("/", async (req, res) => {
   const articles = await articlesController.getAllArticles();

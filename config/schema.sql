@@ -91,3 +91,31 @@ VALUES
 "2024-10-20 18:24:10",
 "jezioro zawody wędkarstwo woda")
 ;
+
+CREATE TABLE IF NOT EXISTS competitions (
+	id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    discipline TINYINT,
+    location_name VARCHAR(100),
+    scope VARCHAR(100),
+    type VARCHAR(100),
+    event_date DATE,
+    event_time TIME,
+    creation_date DATETIME,
+    notes VARCHAR(255)
+);
+
+INSERT INTO competitions (name, discipline, location_name, scope, type, event_date, event_time, creation_date, notes)
+VALUES
+("Zawody LESZCZ ODRY 2024", 1, "ODRA - Zawalna", "KLUBOWE", "indywidualne", "2024-07-14", "07:00:00", "2024-01-20 16:45:23", "Tylko dla członków klubu ODRZAŃSKI FEEDER"),
+("Puchar lata", 3, "Kanał Powodziowy", "KOŁOWE", "indywidualne", "2024-08-20", "07:00:00", "2024-01-20 17:23:57", "Wpisowe 10zł na grilla"),
+("Mistrzostwa Polski 2023", 1, "Wisła", "OGÓLNOPOLSKIE", "zespołowe", "2023-06-15", "09:00:00", "2023-02-10 12:30:45", "Wszystkie drużyny mogą się zgłaszać"),
+("Puchar Jesieni 2023", 3, "Rzeka Warta", "REGIONALNE", "indywidualne", "2023-09-10", "08:00:00", "2023-03-05 08:45:23", "Obowiązkowe zgłoszenie do 1 września"),
+("Zawody o Puchar Prezydenta 2023", 1, "Jezioro Malwina", "MISTRZOSTWA", "indywidualne", "2023-10-03", "10:00:00", "2023-04-12 14:22:00", "Wymagana rejestracja online"),
+("Puchar Ligi Feederowej 2023", 3, "Kanał Odra", "KLUBOWE", "zespołowe", "2023-11-01", "07:30:00", "2023-06-17 10:15:47", "Tylko dla drużyn feederowych"),
+("Mistrzostwa Świata 2024", 1, "Słowacja - Rzeka Dunaj", "MIĘDZYNARODOWE", "zespołowe", "2024-05-25", "09:00:00", "2024-01-15 10:30:20", "Wymagany poziom A+"),
+("Puchar Mistrza Wędkarza 2024", 3, "Zalew Żernickiego", "REGIONALNE", "indywidualne", "2024-04-13", "08:00:00", "2024-02-02 11:00:02", "Tylko dla zawodników z licencją"),
+("Puchar Zimowy 2024", 1, "Jezioro Czerniakowskie", "KLUBOWE", "indywidualne", "2024-12-10", "06:30:00", "2024-03-01 12:05:55", "Tylko dla członków klubu Wędkarzy"),
+("Zawody Pamięci Zmarłych Wędkarzy 2024", 3, "Rzeka Odra", "KOŁOWE", "zespołowe", "2024-11-02", "07:15:00", "2024-04-10 13:40:40", "Upamiętnienie wędkarzy, którzy odeszli"),
+("Puchar Króla Wędkarza 2024", 1, "Jezioro Karpik", "MISTRZOSTWA", "indywidualne", "2024-03-18", "07:30:00", "2024-05-10 09:00:23", "Otwarte dla wszystkich wędkarzy"),
+("Puchar Wędkarza Roku 2024", 3, "Zalew Słowiański", "OGÓLNOPOLSKIE", "zespołowe", "2024-06-22", "09:00:00", "2024-06-01 14:11:18", "Zgłoszenia do końca maja");
