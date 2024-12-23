@@ -13,7 +13,6 @@ class ScheduleTable {
   getTable() {
     //CREATING TABLE
     const table = document.createElement("table");
-    table.classList.add("table");
     if (this.tableClasses) {
       this.tableClasses.forEach((item) => {
         table.classList.add(item);
@@ -69,7 +68,7 @@ function createTableRow(data, index) {
     indexField.textContent = index;
     row.appendChild(indexField);
   }
-  data.forEach((item) => {
+  Object.values(data).forEach((item) => {
     const commonField = document.createElement("td");
     commonField.textContent = item;
     row.appendChild(commonField);
