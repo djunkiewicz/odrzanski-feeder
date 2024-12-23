@@ -13,19 +13,11 @@ class ScheduleTable {
   getTable() {
     //CREATING TABLE
     const table = document.createElement("table");
-    if (this.tableClasses) {
-      this.tableClasses.forEach((item) => {
-        table.classList.add(item);
-      });
-    }
+    this.tableClasses && table.classList.add(...this.tableClasses);
 
     //CREATING HEAD OF TABLE
     const tableHead = document.createElement("thead");
-    if (this.tableHeadClasses) {
-      this.tableHeadClasses.forEach((item) => {
-        tableHead.classList.add(item);
-      });
-    }
+    this.tableHeadClasses && tableHead.classList.add(...this.tableHeadClasses);
     const rowHead = document.createElement("tr");
     if (this.indexColumn) {
       const indexField = document.createElement("th");
@@ -43,11 +35,7 @@ class ScheduleTable {
 
     //CREATING BODY OF TABLE
     const tableBody = document.createElement("tbody");
-    if (this.tableBodyClasses) {
-      this.tableBodyClasses.forEach((item) => {
-        tableBody.classList.add(item);
-      });
-    }
+    this.tableBodyClasses && tableBody.classList.add(...this.tableBodyClasses);
     this.rows.forEach((row, index) => {
       const newRow = createTableRow(row, index);
       tableBody.appendChild(newRow);
