@@ -19,6 +19,10 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/schedule/registration", async (req, res) => {
+    res.render("registration.ejs");
+  });
+
   app.post("/schedule/find", async (req, res) => {
     const competitions = await competitionsController.getCompetitionsByCriteria(
       req.body
