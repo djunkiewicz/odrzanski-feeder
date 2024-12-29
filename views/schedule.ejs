@@ -11,8 +11,9 @@
           <label for="country" class="form-label">Sezon</label>
           <select class="form-select" id="country" required="">
             <option value="">Wybierz...</option>
-            <option>2024</option>
-            <option>2023</option>
+            <% for( let year = new Date().getFullYear(); year >= 2023; year-- ) { %>
+            <option><%= year %></option>
+            <% } %>
             <option>Wszystko</option>
           </select>
           <div class="invalid-feedback">
