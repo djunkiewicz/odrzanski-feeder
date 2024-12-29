@@ -20,15 +20,11 @@ class ScheduleTable {
     this.tableHeadClasses && tableHead.classList.add(...this.tableHeadClasses);
     const rowHead = document.createElement("tr");
     if (this.indexColumn) {
-      const indexField = document.createElement("th");
-      indexField.setAttribute("scope", "col");
-      indexField.textContent = "lp.";
+      const indexField = createField("th", "lp.", "col");
       rowHead.appendChild(indexField);
     }
     this.columns.forEach((item) => {
-      const headField = document.createElement("th");
-      headField.setAttribute("scope", "col");
-      headField.textContent = item;
+      const headField = createField("th", item, "col");
       rowHead.appendChild(headField);
     });
     tableHead.appendChild(rowHead);
@@ -51,15 +47,19 @@ class ScheduleTable {
 function createTableRow(data, index) {
   const row = document.createElement("tr");
   if (this.indexColumn) {
-    const indexField = document.createElement("th");
-    indexField.setAttribute("scope", "row");
-    indexField.textContent = index;
+    const indexField = createField("th", index, "row");
     row.appendChild(indexField);
   }
   Object.values(data).forEach((item) => {
-    const commonField = document.createElement("td");
-    commonField.textContent = item;
+    const commonField = createField("td", item);
     row.appendChild(commonField);
   });
   return row;
+}
+
+function createField(type, content, scope) {
+  const field = document.createElement(String(type) || null);
+  field.textContent = String(content) || null;
+  field.setAttribute("scope", String(scope) || null);
+  return field;
 }
