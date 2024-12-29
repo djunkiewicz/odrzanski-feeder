@@ -56,7 +56,7 @@ class ScheduleTable {
     const tableBody = document.createElement("tbody");
     this.tableBodyClasses && tableBody.classList.add(...this.tableBodyClasses);
     this.rows.forEach((row, index) => {
-      const newRow = createTableRow(row, index, this.indexColumn);
+      const newRow = createTableRow(row, index + 1, this.indexColumn);
       tableBody.appendChild(newRow);
     });
 
