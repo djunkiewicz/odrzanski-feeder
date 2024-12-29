@@ -4,17 +4,16 @@
   <h1>Schedule page</h1>
   <% if(locals.competitions) { %>
   <div id="competitions-container">
-    <form class="" novalidate="">
+    <form action="/schedule/find" method="POST" class="" novalidate="">
       <div class="row g-3">
 
         <div class="col-md-4">
-          <label for="country" class="form-label">Sezon</label>
-          <select class="form-select" id="country" required="">
-            <option value="">Wybierz...</option>
+          <label for="year" class="form-label">Sezon</label>
+          <select class="form-select" id="year" name="year" required="">
             <% for( let year = new Date().getFullYear(); year >= 2023; year-- ) { %>
-            <option><%= year %></option>
+            <option <% if (locals.criteria && locals.criteria.year === `${year}`) { %> selected <% } %>><%= year %></option>
             <% } %>
-            <option>Wszystko</option>
+            <option <% if (locals.criteria && locals.criteria.year === 'Wszystko') { %> selected <% } %>>Wszystko</option>
           </select>
           <div class="invalid-feedback">
             Wybierz sezon
@@ -24,20 +23,20 @@
         <div class="col-md-4">
           <label class="form-label">Dyscyplina</label>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check1" checked>
-            <label class="form-check-label" for="check1">
+            <input class="form-check-input" type="checkbox" id="disciplineFeeder" name="disciplineFeeder" <% if (locals.criteria && locals.criteria.disciplineFeeder) { %> checked <% } %>>
+            <label class="form-check-label" for="disciplineFeeder">
               Feeder
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check2" checked>
-            <label class="form-check-label" for="check2">
+            <input class="form-check-input" type="checkbox" id="disciplineFloat" name="disciplineFloat" <% if (locals.criteria && locals.criteria.disciplineFloat) { %> checked <% } %>>
+            <label class="form-check-label" for="disciplineFloat">
               Spławik
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check3" checked>
-            <label class="form-check-label" for="check3">
+            <input class="form-check-input" type="checkbox" id="disciplineSpinning" name="disciplineSpinning" <% if (locals.criteria && locals.criteria.disciplineSpinning) { %> checked <% } %>>
+            <label class="form-check-label" for="disciplineSpinning">
               Spinning
             </label>
           </div>
@@ -46,20 +45,20 @@
         <div class="col-md-4">
           <label class="form-label">Kategoria</label>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check1" checked>
-            <label class="form-check-label" for="check1">
+            <input class="form-check-input" type="checkbox" id="category1" name="category1" <% if (locals.criteria && locals.criteria.category1) { %> checked <% } %>>
+            <label class="form-check-label" for="category1">
               Kołowe
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check2">
-            <label class="form-check-label" for="check2">
+            <input class="form-check-input" type="checkbox" id="category2" name="category2" <% if (locals.criteria && locals.criteria.category2) { %> checked <% } %>>
+            <label class="form-check-label" for="category2">
               Okręgowe
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="check3" checked>
-            <label class="form-check-label" for="check3">
+            <input class="form-check-input" type="checkbox" id="category3" name="category3" <% if (locals.criteria && locals.criteria.category3) { %> checked <% } %>>
+            <label class="form-check-label" for="category3">
               Klubowe - "Odrzański Feeder"
             </label>
           </div>

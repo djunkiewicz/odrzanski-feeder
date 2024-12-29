@@ -7,4 +7,11 @@ async function getAllCompetitions() {
   } else return null;
 }
 
-module.exports = { getAllCompetitions };
+async function getCompetitionsByCriteria(criteria) {
+  const result = await competitionsRepository.getAllCompetitions();
+  if (result.length > 0) {
+    return JSON.stringify(result);
+  } else return null;
+}
+
+module.exports = { getAllCompetitions, getCompetitionsByCriteria };
