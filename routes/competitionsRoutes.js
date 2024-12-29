@@ -19,8 +19,12 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/schedule/registration", async (req, res) => {
+  app.get("/registration", async (req, res) => {
     res.render("registration.ejs");
+  });
+
+  app.get("/regulations", async (req, res) => {
+    res.render("regulations.ejs");
   });
 
   app.post("/schedule/find", async (req, res) => {
