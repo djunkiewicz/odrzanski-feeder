@@ -22,7 +22,8 @@ async function getCompetitionsByCriteria(criteria) {
       `SELECT * FROM competitions
       WHERE event_date BETWEEN ? AND ?
       AND (scope = ? OR scope = ? OR scope = ?)
-      AND (discipline & ? = discipline);`,
+      AND (discipline & ? = discipline)
+      ORDER BY event_date ASC;`,
       queryParams
     );
     return rows;

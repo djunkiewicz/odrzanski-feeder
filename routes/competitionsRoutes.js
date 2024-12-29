@@ -10,7 +10,9 @@ const defaultCriteria = {
 
 module.exports = function (app) {
   app.get("/schedule", async (req, res) => {
-    const competitions = await competitionsController.getAllCompetitions();
+    const competitions = await competitionsController.getCompetitionsByCriteria(
+      defaultCriteria
+    );
     res.render("schedule.ejs", {
       competitions: competitions,
       criteria: defaultCriteria,
