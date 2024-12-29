@@ -1,7 +1,30 @@
+const classicFeederMask = 0b00000001;
+const methodFeederMask = 0b00000010;
+const spinningMask = 0b00000100;
+const floatMask = 0b00001000;
+
+const dateOptions = {
+  year: "numeric",
+  month: "numeric",
+  day: "2-digit",
+};
+
 class ScheduleTable {
   constructor(columnNames, tableItems, options) {
     this.columns = columnNames;
-    this.rows = tableItems;
+    this.rows = tableItems.map((item) => {
+      const mappedItem = item;
+      delete mappedItem.id;
+      delete mappedItem.creation_date;
+      delete mappedItem.type;
+      mappedItem.event_date = new Date(
+        mappedItem.event_date
+      ).toLocaleDateString("pl-PL", dateOptions);
+      mappedItem.event_time = mappedItem.event_time.slice(0, 5);
+      mappedItem.discipline = resolveDiscipline(mappedItem.discipline);
+
+      return mappedItem;
+    });
     if (options) {
       this.indexColumn = options.indexColumn || false;
       this.tableClasses = options.tableClassList || null;
@@ -33,7 +56,7 @@ class ScheduleTable {
     const tableBody = document.createElement("tbody");
     this.tableBodyClasses && tableBody.classList.add(...this.tableBodyClasses);
     this.rows.forEach((row, index) => {
-      const newRow = createTableRow(row, index);
+      const newRow = createTableRow(row, index, this.indexColumn);
       tableBody.appendChild(newRow);
     });
 
@@ -44,9 +67,9 @@ class ScheduleTable {
   }
 }
 
-function createTableRow(data, index) {
+function createTableRow(data, index, indexColumnFlag) {
   const row = document.createElement("tr");
-  if (this.indexColumn) {
+  if (indexColumnFlag) {
     const indexField = createField("th", index, "row");
     row.appendChild(indexField);
   }
@@ -62,4 +85,17 @@ function createField(type, content, scope) {
   field.textContent = String(content) || null;
   field.setAttribute("scope", String(scope) || null);
   return field;
+}
+
+function resolveDiscipline(code) {
+  const disciplineString = "".concat(
+    (code & classicFeederMask) === classicFeederMask
+      ? "Feeder klasyczny\n"
+      : "",
+    (code & methodFeederMask) === methodFeederMask ? "Metoda\n" : "",
+    (code & spinningMask) === spinningMask ? "Spinning\n" : "",
+    (code & floatMask) === floatMask ? "Spławik\n" : ""
+  );
+
+  return disciplineString;
 }
