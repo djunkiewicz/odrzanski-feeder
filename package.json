@@ -12,6 +12,9 @@
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.17.0",
-    "mysql2": "^3.11.5"
+    "express-session": "^1.18.1",
+    "mysql2": "^3.11.5",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   }
 }
