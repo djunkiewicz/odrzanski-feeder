@@ -22,7 +22,7 @@ async function getCompetitionsByCriteria(criteria) {
       `SELECT * FROM competitions
       WHERE event_date BETWEEN ? AND ?
       AND (scope = ? OR scope = ? OR scope = ?)
-      AND (discipline & ? = discipline)
+      AND ((? & discipline = ?) OR (? & discipline = discipline))
       ORDER BY event_date ASC;`,
       queryParams
     );
@@ -43,7 +43,8 @@ function getQueryParams(criteria) {
   paramsArray.push(criteria.category1 ? "KOŁOWE" : null);
   paramsArray.push(criteria.category2 ? "OKRĘGOWE" : null);
   paramsArray.push(criteria.category3 ? "KLUBOWE" : null);
-  paramsArray.push(calculateDiscipline(criteria));
+  const disciplineNumber = calculateDiscipline(criteria);
+  paramsArray.push(disciplineNumber, disciplineNumber, disciplineNumber);
   return paramsArray;
 }
 
