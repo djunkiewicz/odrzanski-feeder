@@ -30,6 +30,14 @@ module.exports = function (app, passport) {
   //authentication, login and logout END
 
   app.get("/cms/", checkAuthenticated, (req, res) => {
-    res.render("./cms/home.ejs");
+    res.render("./cms/cmsHome.ejs");
+  });
+
+  app.get("/cms/articles", checkAuthenticated, (req, res) => {
+    res.render("./cms/cmsArticles.ejs");
+  });
+
+  app.get("/cms/competitions", checkAuthenticated, (req, res) => {
+    res.render("./cms/");
   });
 };
