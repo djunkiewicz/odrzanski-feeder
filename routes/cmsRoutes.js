@@ -1,12 +1,12 @@
-module.exports = function (app, passport) {
-  app.get("/cms/", (req, res) => {
-    if (req.isAuthenticated()) {
-      res.render("./cms/home.ejs");
-    } else {
-      res.redirect("/cms/login");
-    }
-  });
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/cms/login");
+};
 
+module.exports = function (app, passport) {
+  //authentication, login and logout START
   app.get("/cms/login", (req, res) => {
     res.render("./cms/cmsLogin.ejs");
   });
@@ -26,5 +26,10 @@ module.exports = function (app, passport) {
       }
       res.redirect("/");
     });
+  });
+  //authentication, login and logout END
+
+  app.get("/cms/", checkAuthenticated, (req, res) => {
+    res.render("./cms/home.ejs");
   });
 };

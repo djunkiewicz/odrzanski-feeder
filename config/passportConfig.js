@@ -5,8 +5,8 @@ passport.use(
   "local",
   new Strategy(function verify(username, password, cb) {
     if (
-      username === process.env.TEST_USERNAME &&
-      password === process.env.TEST_PASSWORD
+      username === process.env.ADMIN_USERNAME &&
+      password === process.env.ADMIN_PASSWORD
     ) {
       let authenticatedUser = { id: 1, name: "admin1" };
       console.log("Correct credentials.");
