@@ -19,12 +19,10 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
-  console.log("---> serializing user");
   cb(null, user);
 });
 
 passport.deserializeUser((user, cb) => {
-  console.log("---> deserializing user");
   cb(null, user);
 });
 
