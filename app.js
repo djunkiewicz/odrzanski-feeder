@@ -1,8 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const passport = require("passport");
-const { Strategy } = require("passport-local");
+const { passport } = require("./config/passportConfig");
 const env = require("dotenv");
 env.config();
 
@@ -48,33 +47,6 @@ app.get("/cms/logout", (req, res) => {
     }
     res.redirect("/");
   });
-});
-
-passport.use(
-  "local",
-  new Strategy(function verify(username, password, cb) {
-    if (
-      username === process.env.TEST_USERNAME &&
-      password === process.env.TEST_PASSWORD
-    ) {
-      let authenticatedUser = { id: 1, name: "admin1" };
-      console.log("Correct credentials.");
-      return cb(null, authenticatedUser);
-    } else {
-      console.log("Invalid login or password.");
-      return cb(null, false);
-    }
-  })
-);
-
-passport.serializeUser((user, cb) => {
-  console.log("---> serializing user");
-  cb(null, user);
-});
-
-passport.deserializeUser((user, cb) => {
-  console.log("---> deserializing user");
-  cb(null, user);
 });
 
 require("./routes/articlesRoutes")(app);
