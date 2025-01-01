@@ -4,9 +4,9 @@
   <a class="btn btn-primary" href="/cms/articles?action=new" role="button">Dodaj nowy</a>
   <a class="btn btn-primary" href="/cms/articles?action=edit" role="button">Edytuj istniejący</a>
   <% if (locals.action === "edit") { %>
-  <h2>Edytowanie istniejącego artykułu</h2>
+  <%- include('./partials/editArticle') %>
   <% } else { %>
-  <h2>Dodawanie nowego artykułu</h2>
+  <%- include('./partials/newArticle') %>
   <% } %>
 </div>
 <%- include('./partials/cmsFooter') %>
