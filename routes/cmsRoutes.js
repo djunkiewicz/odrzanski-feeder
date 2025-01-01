@@ -34,7 +34,8 @@ module.exports = function (app, passport) {
   });
 
   app.get("/cms/articles", checkAuthenticated, (req, res) => {
-    res.render("./cms/cmsArticles.ejs");
+    const action = req.query.action === "edit" ? "edit" : "new";
+    res.render("./cms/cmsArticles.ejs", { action: action });
   });
 
   app.get("/cms/competitions", checkAuthenticated, (req, res) => {
