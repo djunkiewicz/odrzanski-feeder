@@ -1,6 +1,5 @@
 const multer = require("multer");
-const cmsController = require("../controllers/cmsController");
-const fs = require("node:fs/promises");
+const articlesController = require("../controllers/cmsController");
 
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -50,15 +49,15 @@ module.exports = function (app, passport) {
     res.render("./cms/");
   });
 
-  app.post("/cms/articles/new", checkAuthenticated, async (req, res) => {
+  app.post("/cms/articles/new", checkAuthenticated, (req, res) => {
     upload.array("images")(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.log(`Multer error occurer: ${err.message}`);
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
       } else {
-        const message = await cmsController.saveNewArticle(req.body, req.files);
-        console.log(message);
+        const result = await articlesController.saveNewArticle(req.body, req.files);
+        console.log(result);
       }
     });
   });

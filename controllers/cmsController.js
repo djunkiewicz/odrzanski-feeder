@@ -1,11 +1,13 @@
+const articlesController = require("../controllers/articlesController")
+
 function validateNewArticleRequest(body, files) {
-  let validationStatus, message;
+  let validationStatus;
+  const message = {};
   if (body.name && body.name === "aaa") {
     validationStatus = true;
-    message = "Request is correctly processing";
   } else {
     validationStatus = false;
-    message = "Request is invalid";
+    message.name = "Name is invalid";
   }
   return { validationStatus, message };
 }
@@ -17,7 +19,7 @@ async function saveNewArticle(body, files) {
   } else {
     console.log("Not saving files...");
   }
-  return result.message;
+  return result;
 }
 
 module.exports = { saveNewArticle };
