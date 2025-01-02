@@ -1,5 +1,6 @@
 const multer = require("multer");
-const path = require("path");
+const cmsController = require("../controllers/cmsController");
+const fs = require("node:fs/promises");
 
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -8,17 +9,9 @@ const checkAuthenticated = (req, res, next) => {
   res.redirect("/cms/login");
 };
 
-// Konfiguracja Multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/images/A_test_storage"); // Ścieżka do folderu, w którym będą zapisane pliki
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nadaj unikalną nazwę pliku
-  },
-});
-const storage2 = multer.memoryStorage(); // Pliki będą przechowywane w pamięci
-const upload = multer({ storage: storage2 });
+const storage = multer.memoryStorage(); // Pliki będą przechowywane w pamięci
+const limits = { fileSize: 3000000 };
+const upload = multer({ storage: storage, limits: limits });
 
 module.exports = function (app, passport) {
   //authentication, login and logout START
@@ -57,18 +50,16 @@ module.exports = function (app, passport) {
     res.render("./cms/");
   });
 
-  app.post(
-    "/cms/articles/new",
-    checkAuthenticated,
-    upload.array("images"),
-    (req, res) => {
-      const data1 = req.body;
-      const data2 = req.files;
-      console.log("Text data:");
-      console.log(data1);
-      console.log("Files:");
-      console.log(data2);
-      res.redirect("/cms/articles");
-    }
-  );
+  app.post("/cms/articles/new", checkAuthenticated, async (req, res) => {
+    upload.array("images")(req, res, async (err) => {
+      if (err instanceof multer.MulterError) {
+        console.log(`Multer error occurer: ${err.message}`);
+      } else if (err) {
+        console.log(`Unknown error occured: ${err.message}`);
+      } else {
+        const message = await cmsController.saveNewArticle(req.body, req.files);
+        console.log(message);
+      }
+    });
+  });
 };
