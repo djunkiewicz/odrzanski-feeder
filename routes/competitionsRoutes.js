@@ -1,6 +1,7 @@
 const competitionsController = require("../controllers/competitionsController");
 const defaultCriteria = {
-  year: new Date().getFullYear().toString(),
+  // year: new Date().getFullYear().toString(), TODO: uncomment
+  year: 2024,
   disciplineFeeder: "on",
   disciplineFloat: "on",
   disciplineSpinning: "on",
@@ -13,6 +14,7 @@ module.exports = function (app) {
     const competitions = await competitionsController.getCompetitionsByCriteria(
       defaultCriteria
     );
+    // const competitions = await competitionsController.getAllCompetitions();
     res.render("schedule.ejs", {
       competitions: competitions,
       criteria: defaultCriteria,

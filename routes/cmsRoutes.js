@@ -1,5 +1,5 @@
 const multer = require("multer");
-const articlesController = require("../controllers/cmsController");
+const articlesController = require("../controllers/articlesController");
 
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -56,7 +56,10 @@ module.exports = function (app, passport) {
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
       } else {
-        const result = await articlesController.saveNewArticle(req.body, req.files);
+        const result = await articlesController.saveNewArticle(
+          req.body,
+          req.files
+        );
         console.log(result);
       }
     });

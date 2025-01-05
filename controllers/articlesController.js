@@ -1,5 +1,6 @@
 const articlesRepository = require("../repositories/articlesRepository");
 const fs = require("node:fs/promises");
+const ArticleCondition = require("../classes/ArticleCondition");
 
 async function getAllArticles() {
   const result = await articlesRepository.getAllArticles();
@@ -50,13 +51,36 @@ async function getPhotoPaths(directory) {
 }
 
 function validateNewArticleRequest(body, files) {
-  let validationStatus;
-  const message = {};
-  if (body.name && body.name === "aaa") {
-    validationStatus = true;
-  } else {
-    validationStatus = false;
-    message.name = "Name is invalid";
+  let validationStatus = true;
+  const message = [];
+  const conditions = [
+    new ArticleCondition(
+      (body) => body.name.length > 16,
+      "Invalid name, minimum 16 characters"
+    ),
+    new ArticleCondition(
+      (body) => body.content.length > 20,
+      "Article content is too short, minimum 20 characters"
+    ),
+  ];
+  for (const condition of conditions) {
+    if (!condition.check(body)) {
+      message.push(condition.getMessage());
+      validationStatus = false;
+    }
   }
-  return { validationStatus, message };
+  const articleRecord = validationStatus
+    ? buildArticleRecord(body, files)
+    : null;
+  return { validationStatus, message, articleRecord };
+}
+
+function buildArticleRecord(body, files) {
+  return [
+    body.name,
+    body.content,
+    "/gallery/path/",
+    new Date().toString(),
+    "keyword1 keyword2 keyword3",
+  ];
 }
