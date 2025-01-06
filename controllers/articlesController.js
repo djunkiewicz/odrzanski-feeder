@@ -22,9 +22,10 @@ async function getArticleById(id) {
 }
 
 async function saveNewArticle(body, files) {
-  const result = validateNewArticleRequest(body, files);
+  const result = validateNewArticleRequest(body);
   if (result.validationStatus) {
-    console.log("Saving files...");
+    await saveImagesLocally(result.articleRecord.gallery_path, files);
+    await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
     console.log("Not saving files...");
   }
@@ -50,17 +51,17 @@ async function getPhotoPaths(directory) {
   }
 }
 
-function validateNewArticleRequest(body, files) {
+function validateNewArticleRequest(body) {
   let validationStatus = true;
   const message = [];
   const conditions = [
     new ArticleCondition(
-      (body) => body.name.length > 16,
-      "Invalid name, minimum 16 characters"
+      (body) => body.name.length > 5,
+      "Invalid name, minimum 5 characters"
     ),
     new ArticleCondition(
-      (body) => body.content.length > 20,
-      "Article content is too short, minimum 20 characters"
+      (body) => body.content.length > 6,
+      "Article content is too short, minimum 6 characters"
     ),
   ];
   for (const condition of conditions) {
@@ -69,18 +70,39 @@ function validateNewArticleRequest(body, files) {
       validationStatus = false;
     }
   }
-  const articleRecord = validationStatus
-    ? buildArticleRecord(body, files)
-    : null;
+  const articleRecord = validationStatus ? buildArticleRecord(body) : null;
   return { validationStatus, message, articleRecord };
 }
 
-function buildArticleRecord(body, files) {
-  return [
-    body.name,
-    body.content,
-    "/gallery/path/",
-    new Date().toString(),
-    "keyword1 keyword2 keyword3",
-  ];
+function buildArticleRecord(body) {
+  const fullCreationDate = new Date();
+  const [day, month, year] = fullCreationDate
+    .toLocaleDateString("pl-PL", {
+      timeZone: "UTC",
+      day: "2-digit",
+      year: "numeric",
+      month: "numeric",
+    })
+    .split(".");
+  const time = fullCreationDate.toLocaleTimeString("pl-PL", {
+    timeZone: "UTC",
+  });
+  return {
+    name: body.name,
+    content: body.content,
+    gallery_path: `images/event_${year}_${month}_${day}_${time.replaceAll(
+      ":",
+      ""
+    )}`,
+    creation_date: `${year}-${month}-${day} ${time}`,
+    meta_keywords: body.keywords,
+  };
+}
+
+async function saveImagesLocally(directory, files) {
+  const newDirectory = `public/${directory}`;
+  await fs.mkdir(newDirectory);
+  for (const file of files) {
+    await fs.writeFile(newDirectory + "/" + file.originalname, file.buffer);
+  }
 }

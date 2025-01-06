@@ -3,7 +3,7 @@ const pool = db.promisePool;
 
 async function getAllArticles() {
   try {
-    const [rows, fields] = await pool.query("SELECT * FROM articles");
+    const [rows, fields] = await pool.query("SELECT * FROM articles ORDER BY creation_date DESC");
     return rows;
   } catch (err) {
     console.log(err);
@@ -22,4 +22,21 @@ async function getArticleById(id) {
   }
 }
 
-module.exports = { getAllArticles, getArticleById };
+async function saveNewArticle(record) {
+  try {
+    const [rows, fields] = await pool.query(
+      "INSERT INTO articles (name, content, gallery_path, creation_date, meta_keywords) VALUES (?, ?, ?, ?, ?)",
+      [
+        record.name,
+        record.content,
+        record.gallery_path,
+        record.creation_date,
+        record.meta_keywords,
+      ]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports = { getAllArticles, getArticleById, saveNewArticle };

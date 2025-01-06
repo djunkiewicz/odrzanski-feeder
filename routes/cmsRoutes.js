@@ -60,7 +60,7 @@ module.exports = function (app, passport) {
           req.body,
           req.files
         );
-        console.log(result);
+        res.render("./cms/cmsArticles.ejs");
       }
     });
   });
