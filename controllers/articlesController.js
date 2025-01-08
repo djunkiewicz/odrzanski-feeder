@@ -24,8 +24,8 @@ async function getArticleById(id) {
 async function saveNewArticle(body, files) {
   const result = validateNewArticleRequest(body);
   if (result.validationStatus) {
-    await saveImagesLocally(result.articleRecord.gallery_path, files);
-    await articlesRepository.saveNewArticle(result.articleRecord);
+    // await saveImagesLocally(result.articleRecord.gallery_path, files);
+    // await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
     console.log("Not saving files...");
   }

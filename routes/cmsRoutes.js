@@ -60,7 +60,11 @@ module.exports = function (app, passport) {
           req.body,
           req.files
         );
-        res.render("./cms/cmsArticles.ejs");
+        console.log(result);
+        res.render("./cms/cmsArticles.ejs", {
+          response: result,
+          originalReq: req.body,
+        });
       }
     });
   });

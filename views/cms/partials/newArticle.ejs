@@ -1,12 +1,16 @@
+<% const keepData = (locals.response && !locals.response.validationStatus && locals.originalReq)%>
+<% const nameTextHolder = keepData ? locals.originalReq.name : ""; %>
+<% const contentTextHolder = keepData ? locals.originalReq.content : ""; %>
+<% const keywordsTextHolder = keepData ? locals.originalReq.keywords : ""; %>
 <h2>Wypełnij formularz NOWEGO artykułu</h2>
 <form action="/cms/articles/new" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
     <label for="name" class="form-label">Nazwa artykułu</label>
-    <input type="text" class="form-control" id="name" name="name">
+    <input type="text" class="form-control" id="name" name="name" value="<%= nameTextHolder %>">
   </div>
   <div class="mb-3">
     <label for="content" class="form-label">Treść artykułu</label>
-    <textarea class="form-control" id="content" name="content" rows="5"></textarea>
+    <textarea class="form-control" id="content" name="content" rows="5"><%= contentTextHolder %></textarea>
   </div>
   <div class="mb-3">
     <label for="images" class="form-label">Dodaj zdjęcia do artykułu</label>
@@ -14,7 +18,7 @@
   </div>
   <div class="mb-3">
     <label for="keywords" class="form-label">Słowa kluczowe*</label>
-    <input type="text" class="form-control" id="keywords" name="keywords">
+    <input type="text" class="form-control" id="keywords" name="keywords" value="<%= keywordsTextHolder %>">
   </div>
   <p>* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
   <p>Przykład: pzw zawody feeder dzień dziecka</p>
