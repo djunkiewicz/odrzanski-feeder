@@ -49,6 +49,46 @@ class Article {
     return link;
   }
 
+  getCmsCard() {
+    const articleCard = document.createElement("div");
+    articleCard.classList.add("article-card");
+
+    const title = document.createElement("h2");
+    title.textContent = this.name;
+
+    const date = document.createElement("h3");
+    date.textContent = this.creationDate.toLocaleDateString(
+      "pl-PL",
+      dateOptions
+    );
+
+    const editBtn = document.createElement("a");
+    editBtn.classList.add("btn", "btn-info");
+    editBtn.href = `/cms/articles/edit/${this.id}`;
+    editBtn.role = "button";
+    editBtn.textContent = "Edytuj";
+
+    const deleteForm = document.createElement("form");
+    deleteForm.action = "/cms/articles/delete";
+    deleteForm.method = "POST";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "submit";
+    deleteBtn.classList.add("btn", "btn-danger");
+    deleteBtn.name = "id";
+    deleteBtn.value = this.id;
+    deleteBtn.textContent = "Usuń";
+
+    deleteForm.appendChild(deleteBtn);
+
+    articleCard.appendChild(title);
+    articleCard.appendChild(date);
+    articleCard.appendChild(editBtn);
+    articleCard.appendChild(deleteForm);
+
+    return articleCard;
+  }
+
   getDetailedPage() {
     const container = document.createElement("div");
 

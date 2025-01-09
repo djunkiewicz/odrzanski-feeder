@@ -40,9 +40,17 @@ module.exports = function (app, passport) {
     res.render("./cms/cmsHome.ejs");
   });
 
-  app.get("/cms/articles", checkAuthenticated, (req, res) => {
+  app.get("/cms/articles", checkAuthenticated, async (req, res) => {
     const action = req.query.action === "edit" ? "edit" : "new";
-    res.render("./cms/cmsArticles.ejs", { action: action });
+    if (action === "edit") {
+      const allArticles = await articlesController.getAllArticlesBrief();
+      res.render("./cms/cmsArticles.ejs", {
+        action: action,
+        articles: allArticles,
+      });
+    } else {
+      res.render("./cms/cmsArticles.ejs", { action: action });
+    }
   });
 
   app.get("/cms/competitions", checkAuthenticated, (req, res) => {
@@ -60,12 +68,19 @@ module.exports = function (app, passport) {
           req.body,
           req.files
         );
-        console.log(result);
         res.render("./cms/cmsArticles.ejs", {
           response: result,
           originalReq: req.body,
         });
       }
     });
+  });
+
+  app.get("/cms/articles/edit/:id", checkAuthenticated, (req, res) => {
+    res.send("Edycja w trakcie");
+  });
+
+  app.post("/cms/articles/delete", checkAuthenticated, (req, res) => {
+    res.send("Usuwanie elementu");
   });
 };

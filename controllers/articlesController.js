@@ -12,6 +12,13 @@ async function getAllArticles() {
   } else return null;
 }
 
+async function getAllArticlesBrief() {
+  const result = await articlesRepository.getAllArticles();
+  if (result.length > 0) {
+    return result;
+  } else return null;
+}
+
 async function getArticleById(id) {
   const result = await articlesRepository.getArticleById(id);
   const article = result[0];
@@ -32,7 +39,12 @@ async function saveNewArticle(body, files) {
   return result;
 }
 
-module.exports = { getAllArticles, getArticleById, saveNewArticle };
+module.exports = {
+  getAllArticles,
+  getArticleById,
+  saveNewArticle,
+  getAllArticlesBrief,
+};
 
 async function getPhotoPaths(directory) {
   try {

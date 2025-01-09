@@ -1,1 +1,35 @@
 <h2>EDYTUJ wybrany artykuł</h2>
+<% if (locals.articles) { %>
+<div id="cms-articles-container">
+
+</div>
+<div id="cms-pagination-container"></div>
+<% } %>
+
+<script src="/components/article.js"></script>
+<script src="/pagination.js"></script>
+<link rel="stylesheet" href="/styles/pagination.css" />
+
+<script>
+  const articlesList = <%- JSON.stringify(articles)%>;
+  console.log(articlesList);
+
+  function renderSinglePage(selectedArticles) {
+    $("#cms-articles-container").empty();
+    selectedArticles.forEach(element => {
+      const article = new Article(element);
+      $("#cms-articles-container").append(article.getCmsCard());
+    });
+  }
+
+  $('#cms-pagination-container').pagination({
+    dataSource: articlesList,
+    pageSize: 10,
+    className: 'paginationjs-big',
+    showGoInput: true,
+    showGoButton: true,
+    callback: function(data, pagination) {
+      renderSinglePage(data);
+    }
+  })
+</script>
