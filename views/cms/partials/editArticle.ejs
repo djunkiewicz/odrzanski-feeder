@@ -1,18 +1,42 @@
 <h2>EDYTUJ wybrany artykuł</h2>
 <% if (locals.articles) { %>
-<div id="cms-articles-container">
-
-</div>
+<div id="cms-articles-container"></div>
 <div id="cms-pagination-container"></div>
 <% } %>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Wymagane potwierdzenie</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć wybrany artykuł?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+        <button type="button" class="btn btn-danger">Usuń</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="/components/article.js"></script>
 <script src="/pagination.js"></script>
 <link rel="stylesheet" href="/styles/pagination.css" />
 
 <script>
+  const wrapper = document.getElementById("cms-articles-container");
+  wrapper.addEventListener("click", (event) => {
+    const needConfirmation = event.target.getAttribute("need-confirmation") === "TRUE";
+    if (needConfirmation) {
+      //po prostu dodać za pomoca append do istniejącego footera modalu odpowiednie przyciski i linki
+    }
+  })
+</script>
+<script>
   const articlesList = <%- JSON.stringify(articles)%>;
-  console.log(articlesList);
 
   function renderSinglePage(selectedArticles) {
     $("#cms-articles-container").empty();

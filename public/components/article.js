@@ -68,23 +68,26 @@ class Article {
     editBtn.role = "button";
     editBtn.textContent = "Edytuj";
 
-    const deleteForm = document.createElement("form");
-    deleteForm.action = "/cms/articles/delete";
-    deleteForm.method = "POST";
+    // const deleteForm = document.createElement("form");
+    // deleteForm.action = "/cms/articles/delete";
+    // deleteForm.method = "POST";
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.type = "submit";
+    deleteBtn.type = "button";
     deleteBtn.classList.add("btn", "btn-danger");
     deleteBtn.name = "id";
     deleteBtn.value = this.id;
     deleteBtn.textContent = "Usuń";
+    deleteBtn.setAttribute("data-bs-toggle", "modal");
+    deleteBtn.setAttribute("data-bs-target", "#staticBackdrop");
+    deleteBtn.setAttribute("need-confirmation", "true");
 
-    deleteForm.appendChild(deleteBtn);
+    // deleteForm.appendChild(deleteBtn);
 
     articleCard.appendChild(title);
     articleCard.appendChild(date);
     articleCard.appendChild(editBtn);
-    articleCard.appendChild(deleteForm);
+    articleCard.appendChild(deleteBtn);
 
     return articleCard;
   }
@@ -121,5 +124,9 @@ class Article {
     container.appendChild(returnButton);
 
     return container;
+  }
+
+  testPrint() {
+    console.log("TGEREGRG");
   }
 }
