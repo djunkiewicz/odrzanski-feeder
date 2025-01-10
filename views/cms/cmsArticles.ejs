@@ -4,7 +4,7 @@
   <a class="btn btn-primary" href="/cms/articles?action=new" role="button">Dodaj nowy</a>
   <a class="btn btn-primary" href="/cms/articles?action=edit" role="button">Edytuj istniejący</a>
   <% if (locals.action === "edit") { %>
-  <%- include('./partials/editArticle') %>
+  <%- include('./partials/editExistingArticle') %>
   <% } else { %>
   <%- include('./partials/newArticle') %>
   <% } %>

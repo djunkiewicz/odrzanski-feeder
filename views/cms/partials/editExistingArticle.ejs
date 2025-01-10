@@ -1,0 +1,69 @@
+<h2>EDYTUJ wybrany artykuł</h2>
+<% if (locals.articles) { %>
+<%- include('./selectArticle') %>
+<% } else if (locals.articleToEdit) { %>
+<%- include('./editArticle') %>
+<%}%>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Wymagane potwierdzenie</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć wybrany artykuł?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+        <div id="cms-confirmation-btn"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/components/article.js"></script>
+<script src="/pagination.js"></script>
+<link rel="stylesheet" href="/styles/pagination.css" />
+
+
+<script>
+  const wrapper = document.getElementById("cms-articles-container");
+  wrapper.addEventListener("click", (event) => {
+    const needConfirmation = event.target.getAttribute("need-confirmation") === "true";
+    if (needConfirmation) {
+      $("#cms-confirmation-btn").empty();
+      $("#cms-confirmation-btn").append(Article.createDeleteButton("/cms/articles/delete", "POST", event.target.value));
+    }
+  })
+</script>
+
+<% if (locals.articles) { %>
+<script>
+  const articlesList = <%- JSON.stringify(articles)%>;
+
+  function renderSinglePage(selectedArticles) {
+    $("#cms-articles-container").empty();
+    selectedArticles.forEach(element => {
+      const article = new Article(element);
+      $("#cms-articles-container").append(article.getCmsCard());
+    });
+  }
+
+  $('#cms-pagination-container').pagination({
+    dataSource: articlesList,
+    pageSize: 10,
+    className: 'paginationjs-big',
+    showGoInput: true,
+    showGoButton: true,
+    callback: function(data, pagination) {
+      renderSinglePage(data);
+    }
+  })
+</script>
+<% } else if (locals.articleToEdit) { %>
+<script>
+
+</script>
+<%}%>

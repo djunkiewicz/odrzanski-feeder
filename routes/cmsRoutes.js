@@ -76,8 +76,23 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.get("/cms/articles/edit/:id", checkAuthenticated, (req, res) => {
-    res.send("Edycja w trakcie");
+  app.get("/cms/articles/edit/:id", checkAuthenticated, async (req, res) => {
+    // const articleToEdit = await articlesController.getArticleById(req.query.id);
+    // res.render("./cms/cmsArticles.ejs", {
+    //   action: "edit",
+    //   articleToEdit: articleToEdit,
+    // });
+    res.render("./cms/cmsArticles.ejs", {
+      action: "edit",
+      articleToEdit: "ds",
+    });
+  });
+
+  app.post("/cms/articles/edit", checkAuthenticated, (req, res) => {
+    res.render("./cms/cmsArticles.ejs", {
+      action: "edit",
+      articleToEdit: "ds",
+    });
   });
 
   app.post("/cms/articles/delete", checkAuthenticated, (req, res) => {

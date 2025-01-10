@@ -1,60 +1,44 @@
-<h2>EDYTUJ wybrany artykuł</h2>
-<% if (locals.articles) { %>
-<div id="cms-articles-container"></div>
-<div id="cms-pagination-container"></div>
-<% } %>
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Wymagane potwierdzenie</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Czy na pewno chcesz usunąć wybrany artykuł?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-        <div id="cms-confirmation-btn"></div>
-      </div>
-    </div>
+<% const keepData = (locals.response && !locals.response.validationStatus && locals.originalReq)%>
+<% const nameTextHolder = keepData ? locals.originalReq.name : ""; %>
+<% const contentTextHolder = keepData ? locals.originalReq.content : ""; %>
+<% const keywordsTextHolder = keepData ? locals.originalReq.keywords : ""; %>
+<h2>Wypełnij formularz by edytować wybrany artykuł</h2>
+<% if (locals.response && locals.response.validationStatus) { %>
+<div class="alert alert-success" role="alert">
+  <h1>Pomyślnie zaktualizowano artykuł 🎉</h1>
+</div>
+<% } else if(locals.response && !locals.response.validationStatus) { %>
+<div class="alert alert-warning" role="alert">
+  <h1>Nie udało się edytować artykułu:</h1>
+  <ul>
+    <% locals.response.message.forEach(element => { %>
+    <li><%= element %></li>
+    <% }) %>
+  </ul>
+  <div class="alert alert-danger" role="alert">
+    UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
   </div>
 </div>
-
-<script src="/components/article.js"></script>
-<script src="/pagination.js"></script>
-<link rel="stylesheet" href="/styles/pagination.css" />
-
-<script>
-  const wrapper = document.getElementById("cms-articles-container");
-  wrapper.addEventListener("click", (event) => {
-    const needConfirmation = event.target.getAttribute("need-confirmation") === "true";
-    if (needConfirmation) {
-      $("#cms-confirmation-btn").empty();
-      $("#cms-confirmation-btn").append(Article.createDeleteButton("/cms/articles/delete", "POST", event.target.value));
-    }
-  })
-</script>
-<script>
-  const articlesList = <%- JSON.stringify(articles)%>;
-
-  function renderSinglePage(selectedArticles) {
-    $("#cms-articles-container").empty();
-    selectedArticles.forEach(element => {
-      const article = new Article(element);
-      $("#cms-articles-container").append(article.getCmsCard());
-    });
-  }
-
-  $('#cms-pagination-container').pagination({
-    dataSource: articlesList,
-    pageSize: 10,
-    className: 'paginationjs-big',
-    showGoInput: true,
-    showGoButton: true,
-    callback: function(data, pagination) {
-      renderSinglePage(data);
-    }
-  })
-</script>
+<%}%>
+ 
+<form action="/cms/articles/edit" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nazwa artykułu</label>
+    <input type="text" class="form-control" id="name" name="name" value="<%= nameTextHolder %>">
+</div>
+<div class="mb-3">
+  <label for="content" class="form-label">Treść artykułu</label>
+  <textarea class="form-control" id="content" name="content" rows="5"><%= contentTextHolder %></textarea>
+</div>
+<div class="mb-3">
+  <label for="images" class="form-label">Dodaj zdjęcia do artykułu</label>
+  <input type="file" class="form-control" id="images" name="images" accept="image/png, image/jpeg" multiple>
+</div>
+<div class="mb-3">
+  <label for="keywords" class="form-label">Słowa kluczowe*</label>
+  <input type="text" class="form-control" id="keywords" name="keywords" value="<%= keywordsTextHolder %>">
+</div>
+<p>* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
+<p>Przykład: pzw zawody feeder dzień dziecka</p>
+<button type="submit" class="btn btn-primary">Edytuj artykuł</button>
+</form>
