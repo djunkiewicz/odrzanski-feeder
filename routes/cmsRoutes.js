@@ -81,6 +81,6 @@ module.exports = function (app, passport) {
   });
 
   app.post("/cms/articles/delete", checkAuthenticated, (req, res) => {
-    res.send("Usuwanie elementu");
+    res.send(`Usuwanie elementu: ${JSON.stringify(req.body)}`);
   });
 };

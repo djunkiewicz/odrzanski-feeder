@@ -68,10 +68,6 @@ class Article {
     editBtn.role = "button";
     editBtn.textContent = "Edytuj";
 
-    // const deleteForm = document.createElement("form");
-    // deleteForm.action = "/cms/articles/delete";
-    // deleteForm.method = "POST";
-
     const deleteBtn = document.createElement("button");
     deleteBtn.type = "button";
     deleteBtn.classList.add("btn", "btn-danger");
@@ -81,8 +77,6 @@ class Article {
     deleteBtn.setAttribute("data-bs-toggle", "modal");
     deleteBtn.setAttribute("data-bs-target", "#staticBackdrop");
     deleteBtn.setAttribute("need-confirmation", "true");
-
-    // deleteForm.appendChild(deleteBtn);
 
     articleCard.appendChild(title);
     articleCard.appendChild(date);
@@ -126,7 +120,21 @@ class Article {
     return container;
   }
 
-  testPrint() {
-    console.log("TGEREGRG");
+  static createDeleteButton(action, method, idValue) {
+    const deleteForm = document.createElement("form");
+    deleteForm.action = action;
+    deleteForm.method = method;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.classList.add("btn", "btn-danger");
+    btn.name = "id";
+    btn.value = idValue;
+    btn.textContent = "Usuń";
+    btn.type = "submit";
+    btn.classList.add("btn", "btn-danger");
+
+    deleteForm.appendChild(btn);
+    return deleteForm;
   }
 }

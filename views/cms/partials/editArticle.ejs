@@ -16,7 +16,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-        <button type="button" class="btn btn-danger">Usuń</button>
+        <div id="cms-confirmation-btn"></div>
       </div>
     </div>
   </div>
@@ -29,9 +29,10 @@
 <script>
   const wrapper = document.getElementById("cms-articles-container");
   wrapper.addEventListener("click", (event) => {
-    const needConfirmation = event.target.getAttribute("need-confirmation") === "TRUE";
+    const needConfirmation = event.target.getAttribute("need-confirmation") === "true";
     if (needConfirmation) {
-      //po prostu dodać za pomoca append do istniejącego footera modalu odpowiednie przyciski i linki
+      $("#cms-confirmation-btn").empty();
+      $("#cms-confirmation-btn").append(Article.createDeleteButton("/cms/articles/delete", "POST", event.target.value));
     }
   })
 </script>
