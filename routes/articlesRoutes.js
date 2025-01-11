@@ -2,13 +2,11 @@ const articlesController = require("../controllers/articlesController");
 
 module.exports = function (app) {
   app.get("/", async (req, res) => {
-    const articles = await articlesController.getAllArticles();
-    res.render("articles.ejs", { articles: articles });
+    res.render("articles.ejs");
   });
 
   app.get("/article", async (req, res) => {
-    const articles = await articlesController.getAllArticles();
-    res.render("articles.ejs", { articles: "true" });
+    res.render("articles.ejs");
   });
 
   app.get("/data/articles", async (req, res) => {

@@ -2,11 +2,7 @@
 
 <div class="container">
   <h1>Articles page</h1>
-  <% if(locals.articles) { %>
   <div id="articles-container">Aktualności:</div>
-  <% } else { %>
-  <p>No articles available</p>
-  <% }; %>
   <div id="pagination-container"></div>
 </div>
 
@@ -23,7 +19,7 @@
   }
 
   $('#pagination-container').pagination({
-    pageSize: 6,
+    pageSize: 4,
     className: 'paginationjs-big',
     showGoInput: true,
     showGoButton: true,
