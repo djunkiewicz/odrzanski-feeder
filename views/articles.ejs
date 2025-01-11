@@ -14,8 +14,6 @@
 <script src="/pagination.js"></script>
 <link rel="stylesheet" href="/styles/pagination.css" />
 <script>
-  const articlesList = <%- articles%>;
-
   function renderSinglePage(selectedArticles) {
     $("#articles-container").empty();
     selectedArticles.forEach(element => {
@@ -25,15 +23,20 @@
   }
 
   $('#pagination-container').pagination({
-    dataSource: articlesList,
     pageSize: 6,
     className: 'paginationjs-big',
     showGoInput: true,
     showGoButton: true,
+    locator: "articles",
+    dataSource: "/data/articles",
+    totalNumberLocator: function(response) {
+      return response.totalArticles;
+    },
     callback: function(data, pagination) {
       renderSinglePage(data);
     }
-  })
+  });
 </script>
+
 
 <%- include("./partials/footer.ejs")%>

@@ -63,10 +63,30 @@ async function deleteArticle(id) {
   }
 }
 
+async function getArticlesForSinglePage(pageNumber, pageSize) {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT COUNT(*) AS totalArticles FROM articles"
+    );
+    const totalArticles = rows[0].totalArticles;
+    const totalPages = Math.ceil(totalArticles / pageSize);
+
+    const offset = (pageNumber - 1) * pageSize;
+    const [rows2, fields2] = await pool.query(
+      "SELECT * FROM articles ORDER BY creation_date DESC LIMIT ? OFFSET ?",
+      [+pageSize, offset]
+    );
+    return [rows2, totalArticles];
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getAllArticles,
   getArticleById,
   saveNewArticle,
   updateArticle,
   deleteArticle,
+  getArticlesForSinglePage,
 };

@@ -62,6 +62,19 @@ async function deleteArticle(id) {
   await articlesRepository.deleteArticle(id);
 }
 
+async function getArticlesForSinglePage(pageNumber, pageSize) {
+  [articles, totalArticles] = await articlesRepository.getArticlesForSinglePage(
+    pageNumber,
+    pageSize
+  );
+  if (articles.length > 0) {
+    for (const article of articles) {
+      article.photo_paths = await getPhotoPaths(article.gallery_path);
+    }
+    return [articles, totalArticles];
+  } else return null;
+}
+
 module.exports = {
   getAllArticles,
   getArticleById,
@@ -69,6 +82,7 @@ module.exports = {
   getAllArticlesBrief,
   updateArticle,
   deleteArticle,
+  getArticlesForSinglePage,
 };
 
 async function getPhotoPaths(directory) {
