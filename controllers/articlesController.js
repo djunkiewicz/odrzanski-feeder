@@ -31,6 +31,7 @@ async function getArticleById(id) {
 async function saveNewArticle(body, files) {
   const result = validateArticleRequest(body);
   if (result.validationStatus) {
+    console.log(result.articleRecord);
     // await saveImagesLocally(result.articleRecord.gallery_path, files);
     // await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
@@ -42,7 +43,10 @@ async function saveNewArticle(body, files) {
 async function updateArticle(body, files) {
   const result = validateArticleRequest(body);
   if (result.validationStatus) {
+    console.log(result.articleRecord);
     //updating article
+    // await updateImagesLocally(result.articleRecord.gallery_path, files, mode);
+    await articlesRepository.updateArticle(result.articleRecord);
     console.log("Updating article");
   } else {
     console.log("Not updating new article...");
@@ -112,6 +116,7 @@ function buildArticleRecord(body) {
     timeZone: "UTC",
   });
   return {
+    id: body.id || null,
     name: body.name,
     content: body.content,
     gallery_path: `images/event_${year}_${month}_${day}_${time.replaceAll(

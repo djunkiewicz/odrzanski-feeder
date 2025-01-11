@@ -3,7 +3,9 @@ const pool = db.promisePool;
 
 async function getAllArticles() {
   try {
-    const [rows, fields] = await pool.query("SELECT * FROM articles ORDER BY creation_date DESC");
+    const [rows, fields] = await pool.query(
+      "SELECT * FROM articles ORDER BY creation_date DESC"
+    );
     return rows;
   } catch (err) {
     console.log(err);
@@ -39,4 +41,20 @@ async function saveNewArticle(record) {
   }
 }
 
-module.exports = { getAllArticles, getArticleById, saveNewArticle };
+async function updateArticle(record) {
+  try {
+    const [rows, fields] = await pool.query(
+      "UPDATE articles SET name = ?, content = ?, meta_keywords = ? WHERE id = ?;",
+      [record.name, record.content, record.meta_keywords, record.id]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports = {
+  getAllArticles,
+  getArticleById,
+  saveNewArticle,
+  updateArticle,
+};
