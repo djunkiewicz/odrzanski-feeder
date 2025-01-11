@@ -1,5 +1,6 @@
 const articlesRepository = require("../repositories/articlesRepository");
 const fs = require("node:fs/promises");
+const { rimrafSync } = require("rimraf");
 const ArticleCondition = require("../classes/ArticleCondition");
 
 async function getAllArticles() {
@@ -31,7 +32,6 @@ async function getArticleById(id) {
 async function saveNewArticle(body, files) {
   const result = validateArticleRequest(body);
   if (result.validationStatus) {
-    console.log(result.articleRecord);
     // await saveImagesLocally(result.articleRecord.gallery_path, files);
     // await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
@@ -43,11 +43,12 @@ async function saveNewArticle(body, files) {
 async function updateArticle(body, files) {
   const result = validateArticleRequest(body);
   if (result.validationStatus) {
-    console.log(result.articleRecord);
-    //updating article
-    // await updateImagesLocally(result.articleRecord.gallery_path, files, mode);
+    const imgDirectory = (
+      await articlesRepository.getArticleById(result.articleRecord.id)
+    )[0].gallery_path;
+    await updateImagesLocally(imgDirectory, files, body.mode);
     await articlesRepository.updateArticle(result.articleRecord);
-    console.log("Updating article");
+    console.log("Updating article...");
   } else {
     console.log("Not updating new article...");
   }
@@ -133,5 +134,25 @@ async function saveImagesLocally(directory, files) {
   await fs.mkdir(newDirectory);
   for (const file of files) {
     await fs.writeFile(newDirectory + "/" + file.originalname, file.buffer);
+  }
+}
+
+async function updateImagesLocally(directory, files, mode) {
+  const updateDirectory = `public/${directory}`;
+  if (mode === "append") {
+    for (const file of files) {
+      await fs.writeFile(
+        updateDirectory + "/" + file.originalname,
+        file.buffer
+      );
+    }
+  } else if (mode === "overwrite") {
+    rimrafSync(`${updateDirectory}/*`, { glob: true });
+    for (const file of files) {
+      await fs.writeFile(
+        updateDirectory + "/" + file.originalname,
+        file.buffer
+      );
+    }
   }
 }

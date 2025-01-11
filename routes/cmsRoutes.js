@@ -92,6 +92,7 @@ module.exports = function (app, passport) {
         console.log(`Multer error occurer: ${err.message}`);
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
+        // ogarnąc jakąs jeszcze komunikat o zbyt dużym pliku
       } else {
         const result = await articlesController.updateArticle(
           req.body,
