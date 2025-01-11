@@ -29,8 +29,7 @@
 
 
 <script>
-  const wrapper = document.getElementById("cms-articles-container");
-  wrapper.addEventListener("click", (event) => {
+  document.body.addEventListener("click", (event) => {
     const needConfirmation = event.target.getAttribute("need-confirmation") === "true";
     if (needConfirmation) {
       $("#cms-confirmation-btn").empty();

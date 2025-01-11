@@ -24,7 +24,7 @@ async function getArticleById(id) {
   const article = result[0];
   if (result.length > 0) {
     article.photo_paths = await getPhotoPaths(article.gallery_path);
-    return JSON.stringify(article);
+    return article;
   } else return null;
 }
 

@@ -77,14 +77,12 @@ module.exports = function (app, passport) {
   });
 
   app.get("/cms/articles/edit/:id", checkAuthenticated, async (req, res) => {
-    // const articleToEdit = await articlesController.getArticleById(req.query.id);
-    // res.render("./cms/cmsArticles.ejs", {
-    //   action: "edit",
-    //   articleToEdit: articleToEdit,
-    // });
+    const articleToEdit = await articlesController.getArticleById(
+      req.params.id
+    );
     res.render("./cms/cmsArticles.ejs", {
       action: "edit",
-      articleToEdit: "ds",
+      articleToEdit: articleToEdit,
     });
   });
 

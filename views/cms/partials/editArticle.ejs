@@ -1,7 +1,7 @@
 <% const keepData = (locals.response && !locals.response.validationStatus && locals.originalReq)%>
-<% const nameTextHolder = keepData ? locals.originalReq.name : ""; %>
-<% const contentTextHolder = keepData ? locals.originalReq.content : ""; %>
-<% const keywordsTextHolder = keepData ? locals.originalReq.keywords : ""; %>
+<% const nameTextHolder = keepData ? locals.originalReq.name : locals.articleToEdit.name; %>
+<% const contentTextHolder = keepData ? locals.originalReq.content : locals.articleToEdit.content; %>
+<% const keywordsTextHolder = keepData ? locals.originalReq.keywords : locals.articleToEdit.meta_keywords; %>
 <h2>Wypełnij formularz by edytować wybrany artykuł</h2>
 <% if (locals.response && locals.response.validationStatus) { %>
 <div class="alert alert-success" role="alert">
