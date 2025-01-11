@@ -125,6 +125,11 @@ class Article {
     deleteForm.action = action;
     deleteForm.method = method;
 
+    const inputHidden = document.createElement("input");
+    inputHidden.type = "hidden";
+    inputHidden.name = "_method";
+    inputHidden.value = "DELETE";
+
     const btn = document.createElement("button");
     btn.type = "button";
     btn.classList.add("btn", "btn-danger");
@@ -134,7 +139,9 @@ class Article {
     btn.type = "submit";
     btn.classList.add("btn", "btn-danger");
 
+    deleteForm.appendChild(inputHidden);
     deleteForm.appendChild(btn);
+
     return deleteForm;
   }
 }

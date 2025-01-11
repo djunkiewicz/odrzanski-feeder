@@ -8,9 +8,22 @@ const checkAuthenticated = (req, res, next) => {
   res.redirect("/cms/login");
 };
 
+const fileFilter = (req, file, cb) => {
+  const extname = file.originalname.split(".").pop().toLowerCase();
+  if (extname === "jpg" || extname === "jpeg") {
+    return cb(null, true);
+  } else {
+    cb(new Error("Tylko pliki JPG lub JPEG są dozwolone!"), false);
+  }
+};
+
 const storage = multer.memoryStorage(); // Pliki będą przechowywane w pamięci
 const limits = { fileSize: 3000000 };
-const upload = multer({ storage: storage, limits: limits });
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: limits,
+});
 
 module.exports = function (app, passport) {
   //authentication, login and logout START
@@ -90,8 +103,10 @@ module.exports = function (app, passport) {
     upload.array("images")(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.log(`Multer error occurer: ${err.message}`);
+        res.send(err.message);
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
+        res.send(err.message);
         // ogarnąc jakąs jeszcze komunikat o zbyt dużym pliku
       } else {
         const result = await articlesController.updateArticle(
@@ -111,7 +126,8 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.post("/cms/articles/delete", checkAuthenticated, (req, res) => {
-    res.send(`Usuwanie elementu: ${JSON.stringify(req.body)}`);
+  app.delete("/cms/articles/delete", checkAuthenticated, async (req, res) => {
+    await articlesController.deleteArticle(+req.body.id);
+    res.redirect("/cms/articles?action=edit");
   });
 };

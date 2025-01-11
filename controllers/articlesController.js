@@ -32,8 +32,8 @@ async function getArticleById(id) {
 async function saveNewArticle(body, files) {
   const result = validateArticleRequest(body);
   if (result.validationStatus) {
-    // await saveImagesLocally(result.articleRecord.gallery_path, files);
-    // await articlesRepository.saveNewArticle(result.articleRecord);
+    await saveImagesLocally(result.articleRecord.gallery_path, files);
+    await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
     console.log("Not saving new article...");
   }
@@ -55,12 +55,20 @@ async function updateArticle(body, files) {
   return result;
 }
 
+async function deleteArticle(id) {
+  const imgDirectory = (await articlesRepository.getArticleById(id))[0]
+    .gallery_path;
+  await deleteImageFolder(imgDirectory);
+  await articlesRepository.deleteArticle(id);
+}
+
 module.exports = {
   getAllArticles,
   getArticleById,
   saveNewArticle,
   getAllArticlesBrief,
   updateArticle,
+  deleteArticle,
 };
 
 async function getPhotoPaths(directory) {
@@ -155,4 +163,9 @@ async function updateImagesLocally(directory, files, mode) {
       );
     }
   }
+}
+
+async function deleteImageFolder(directory) {
+  const deleteDirectory = `public/${directory}`;
+  rimrafSync(`${deleteDirectory}`, { glob: true });
 }

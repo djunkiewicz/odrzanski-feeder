@@ -52,9 +52,21 @@ async function updateArticle(record) {
   }
 }
 
+async function deleteArticle(id) {
+  try {
+    const [rows, fields] = await pool.query(
+      "DELETE FROM articles WHERE id = ?;",
+      [id]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getAllArticles,
   getArticleById,
   saveNewArticle,
   updateArticle,
+  deleteArticle,
 };

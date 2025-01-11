@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const methodOverride = require("method-override");
 const { passport } = require("./config/passportConfig");
 const env = require("dotenv");
 env.config();
@@ -15,6 +16,14 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+  })
+);
+app.use(
+  methodOverride((req, res) => {
+    if (req.body && req.body._method) {
+      return req.body._method;
+    }
+    return req.method;
   })
 );
 app.use(passport.initialize());
