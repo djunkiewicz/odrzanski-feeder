@@ -29,12 +29,23 @@ async function getArticleById(id) {
 }
 
 async function saveNewArticle(body, files) {
-  const result = validateNewArticleRequest(body);
+  const result = validateArticleRequest(body);
   if (result.validationStatus) {
     // await saveImagesLocally(result.articleRecord.gallery_path, files);
     // await articlesRepository.saveNewArticle(result.articleRecord);
   } else {
-    console.log("Not saving files...");
+    console.log("Not saving new article...");
+  }
+  return result;
+}
+
+async function updateArticle(body, files) {
+  const result = validateArticleRequest(body);
+  if (result.validationStatus) {
+    //updating article
+    console.log("Updating article");
+  } else {
+    console.log("Not updating new article...");
   }
   return result;
 }
@@ -44,6 +55,7 @@ module.exports = {
   getArticleById,
   saveNewArticle,
   getAllArticlesBrief,
+  updateArticle,
 };
 
 async function getPhotoPaths(directory) {
@@ -63,7 +75,7 @@ async function getPhotoPaths(directory) {
   }
 }
 
-function validateNewArticleRequest(body) {
+function validateArticleRequest(body) {
   let validationStatus = true;
   const message = [];
   const conditions = [

@@ -88,20 +88,15 @@ module.exports = function (app, passport) {
 
   app.post("/cms/articles/edit", checkAuthenticated, (req, res) => {
     upload.array("images")(req, res, async (err) => {
-      console.log(req.body);
       if (err instanceof multer.MulterError) {
         console.log(`Multer error occurer: ${err.message}`);
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
       } else {
-        // const result = await articlesController.updateArticle(
-        //   req.body,
-        //   req.files
-        // );
-        const result = {
-          validationStatus: true,
-          message: ["fake message 1", "fake message 2"],
-        };
+        const result = await articlesController.updateArticle(
+          req.body,
+          req.files
+        );
         const articleToEdit = result.validationStatus
           ? await articlesController.getArticleById(req.body.id)
           : null;
