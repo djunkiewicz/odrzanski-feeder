@@ -1,7 +1,7 @@
 <h2>EDYTUJ wybrany artykuł</h2>
 <% if (locals.articles) { %>
 <%- include('./selectArticle') %>
-<% } else if (locals.articleToEdit) { %>
+<% } else if (locals.articleToEdit || locals.originalReq) { %>
 <%- include('./editArticle') %>
 <%}%>
 
