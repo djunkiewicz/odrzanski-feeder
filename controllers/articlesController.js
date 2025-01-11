@@ -75,6 +75,16 @@ async function getArticlesForSinglePage(pageNumber, pageSize) {
   } else return null;
 }
 
+async function getArticlesBriefForSinglePage(pageNumber, pageSize) {
+  [articles, totalArticles] = await articlesRepository.getArticlesForSinglePage(
+    pageNumber,
+    pageSize
+  );
+  if (articles.length > 0) {
+    return [articles, totalArticles];
+  } else return null;
+}
+
 module.exports = {
   getAllArticles,
   getArticleById,
@@ -83,6 +93,7 @@ module.exports = {
   updateArticle,
   deleteArticle,
   getArticlesForSinglePage,
+  getArticlesBriefForSinglePage,
 };
 
 async function getPhotoPaths(directory) {

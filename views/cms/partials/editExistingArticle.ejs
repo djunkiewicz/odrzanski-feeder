@@ -1,8 +1,9 @@
 <h2>EDYTUJ wybrany artykuł</h2>
-<% if (locals.articles) { %>
-<%- include('./selectArticle') %>
-<% } else if (locals.articleToEdit || locals.originalReq) { %>
+
+<% if (locals.articleToEdit || locals.originalReq) { %>
 <%- include('./editArticle') %>
+<% } else { %>
+<%- include('./selectArticle') %>
 <%}%>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -38,10 +39,8 @@
   })
 </script>
 
-<% if (locals.articles) { %>
+<% if (!locals.articleToEdit) { %>
 <script>
-  const articlesList = <%- JSON.stringify(articles)%>;
-
   function renderSinglePage(selectedArticles) {
     $("#cms-articles-container").empty();
     selectedArticles.forEach(element => {
@@ -51,18 +50,21 @@
   }
 
   $('#cms-pagination-container').pagination({
-    dataSource: articlesList,
-    pageSize: 10,
+    pageSize: 5,
     className: 'paginationjs-big',
     showGoInput: true,
     showGoButton: true,
+    locator: "articles",
+    dataSource: "/data/articles/brief",
+    totalNumberLocator: function(response) {
+      console.log(response);
+      return response.totalArticles;
+    },
     callback: function(data, pagination) {
       renderSinglePage(data);
     }
-  })
+  });
 </script>
-<% } else if (locals.articleToEdit) { %>
-<script>
-
-</script>
+<% } else { %>
+<script></script>
 <%}%>

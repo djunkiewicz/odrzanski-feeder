@@ -56,10 +56,8 @@ module.exports = function (app, passport) {
   app.get("/cms/articles", checkAuthenticated, async (req, res) => {
     const action = req.query.action === "edit" ? "edit" : "new";
     if (action === "edit") {
-      const allArticles = await articlesController.getAllArticlesBrief();
       res.render("./cms/cmsArticles.ejs", {
         action: action,
-        articles: allArticles,
       });
     } else {
       res.render("./cms/cmsArticles.ejs", { action: action });
