@@ -38,7 +38,10 @@ class Article {
     image.src = this.photoPaths[0];
 
     const content = document.createElement("p");
-    content.textContent = this.content.slice(0, cardTextLength).concat("...");
+    const temp = document.createElement("p");
+    temp.innerHTML = this.content;
+    const extractedText = temp.innerText || temp.textContent;
+    content.textContent = extractedText.slice(0, cardTextLength).concat("...");
 
     articleCard.appendChild(title);
     articleCard.appendChild(date);
