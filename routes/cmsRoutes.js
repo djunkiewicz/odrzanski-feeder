@@ -55,17 +55,16 @@ module.exports = function (app, passport) {
 
   app.get("/cms/articles", checkAuthenticated, async (req, res) => {
     const action = req.query.action === "edit" ? "edit" : "new";
-    if (action === "edit") {
-      res.render("./cms/cmsArticles.ejs", {
-        action: action,
-      });
-    } else {
-      res.render("./cms/cmsArticles.ejs", { action: action });
-    }
+    res.render("./cms/cmsArticles.ejs", {
+      action: action,
+    });
   });
 
   app.get("/cms/competitions", checkAuthenticated, (req, res) => {
-    res.render("./cms/");
+    const action = req.query.action === "edit" ? "edit" : "new";
+    res.render("./cms/cmsCompetitions.ejs", {
+      action: action,
+    });
   });
 
   app.post("/cms/articles/new", checkAuthenticated, (req, res) => {
