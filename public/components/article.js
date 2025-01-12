@@ -102,7 +102,7 @@ class Article {
     image.src = this.photoPaths[0];
 
     const content = document.createElement("p");
-    content.textContent = this.content;
+    content.innerHTML = this.content;
 
     const returnButton = document.createElement("a");
     returnButton.classList.add("btn", "btn-primary");

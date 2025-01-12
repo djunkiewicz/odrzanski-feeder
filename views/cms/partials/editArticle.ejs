@@ -3,7 +3,7 @@
 <% const contentTextHolder = keepData ? locals.originalReq.content : locals.articleToEdit.content; %>
 <% const keywordsTextHolder = keepData ? locals.originalReq.keywords : locals.articleToEdit.meta_keywords; %>
 <% const idBuffor = keepData ? locals.originalReq.id : locals.articleToEdit.id; %>
-
+<script src="https://cdn.tiny.cloud/1/5n4ag1bs932atn7n2xg3dlmmwq3litt917cyjziczcmbyebo/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 <h2>Wypełnij formularz by edytować wybrany artykuł</h2>
 <% if (locals.response && locals.response.validationStatus) { %>
@@ -57,3 +57,11 @@
 <p>Przykład: pzw zawody feeder dzień dziecka</p>
 <button type="submit" class="btn btn-primary">Edytuj artykuł</button>
 </form>
+
+<script>
+  tinymce.init({
+    selector: '#content',
+    plugins: 'advlist table autolink lists link charmap preview hr anchor pagebreak',
+    toolbar: 'undo redo | bold italic | fontsizeinput forecolor | alignleft aligncenter alignright | bullist numlist outdent indent | tableprops tablerowprops tablecellprops'
+  });
+</script>
