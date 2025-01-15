@@ -127,4 +127,8 @@ module.exports = function (app, passport) {
     await articlesController.deleteArticle(+req.body.id);
     res.redirect("/cms/articles?action=edit");
   });
+
+  app.post("/cms/competitions/new", checkAuthenticated, async (req, res) => {
+    console.log(req.body);
+  });
 };

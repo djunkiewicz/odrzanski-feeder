@@ -1,37 +1,79 @@
 <h1>Wypełnij formularz i dodaj NOWE wydarzenie!</h1>
-<p>Nazwa wydarzenia - Pole textowe do wpisania</p>
-<div class="mb-3">
-  <label for="name" class="form-label">Nazwa wydarzenia</label>
-  <input type="text" class="form-control" id="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia">
-</div>
-<p>Dyscyplina - checkboxy do zaznaczenia</p>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="discipline-feeder">
-  <label class="form-check-label" for="discipline-feeder">
-    Feeder klasyczny
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="discipline-method-feeder">
-  <label class="form-check-label" for="discipline-method-feeder">
-    Metoda
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="discipline-float">
-  <label class="form-check-label" for="discipline-float">
-    Spławik
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="discipline-spinning">
-  <label class="form-check-label" for="discipline-spinning">
-    Spinning
-  </label>
-</div>
-<p>Miejsce - pole do wpisania + lista predefiniowana</p>
 
-<p>Kategoria - Lista rozwijana</p>
-<p>Termin - jakiś gotowy komponent z wyborem daty</p>
-<p>Godzina zbiórki - jakiś gotowy komponent z wyborem godziny</p>
-<p>Uwagi - textfield</p>
+<form action="/cms/competitions/new" method="POST">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nazwa wydarzenia</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia">
+  </div>
+
+  <div class="mb-3">
+    <h2>Dozwolone dyscypliny</h2>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="discipline-feeder" id="discipline-feeder">
+      <label class="form-check-label" for="discipline-feeder">
+        Feeder klasyczny
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="discipline-method-feeder" id="discipline-method-feeder">
+      <label class="form-check-label" for="discipline-method-feeder">
+        Metoda
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="discipline-float" id="discipline-float">
+      <label class="form-check-label" for="discipline-float">
+        Spławik
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="discipline-spinning" id="discipline-spinning">
+      <label class="form-check-label" for="discipline-spinning">
+        Spinning
+      </label>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <h2>Miejsce/Łowisko</h2>
+    <select class="form-select" id="select-location" name="select-location" aria-label="Default select example">
+      <option selected>Wybierz...</option>
+      <option value="1">Wprowadź łowisko z poza listy</option>
+      <option value="2">Odra ul. Pasterska "Leclerk"</option>
+      <option value="3">Odra ul. Zawalna</option>
+      <option value="4">Odra ul. Bujwida</option>
+      <option value="5">Kanał powodziowy (ul. Folwarczna)</option>
+      <option value="6">Odra "Rędzin"</option>
+      <option value="7">Odra "Łany"</option>
+      <option value="8">Stawy w Leśnicy</option>
+      <option value="9">Zbiornik w Łagiewnikach</option>
+    </select>
+    <div class="mb-3">
+      <label for="location" class="form-label">Miejsce</label>
+      <input type="text" class="form-control" id="location" name="location" placeholder="Wprowadź nazwę łowiska">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <h2>Kategoria</h2>
+    <select class="form-select" id="scope" name="scope" aria-label="Default select example">
+      <option selected>Wybierz...</option>
+      <option value="1">KLUBOWE</option>
+      <option value="2">KOŁOWE</option>
+      <option value="3">OKRĘGOWE</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <h2>Data wydarzenia i godzina zbiórki</h2>
+    <input type="datetime-local" id="date-time-picker" name="date-time-picker">
+  </div>
+
+  <div class="mb-3">
+    <label for="notes" class="form-label">Uwagi</label>
+    <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Dodaj wydarzenie</button>
+
+</form>
