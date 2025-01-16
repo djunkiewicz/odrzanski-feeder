@@ -57,4 +57,18 @@ function calculateDiscipline(criteria) {
   return discipline;
 }
 
-module.exports = { getAllCompetitions, getCompetitionsByCriteria };
+function calculateDisciplineCMS(criteria) {
+  const discipline =
+    (criteria.disciplineFeeder ? classicFeederMask : 0) |
+    (criteria.disciplineMethodFeeder ? methodFeederMask : 0) |
+    (criteria.disciplineSpinning ? spinningMask : 0) |
+    (criteria.disciplineFloat ? floatMask : 0);
+  return discipline;
+}
+
+module.exports = {
+  getAllCompetitions,
+  getCompetitionsByCriteria,
+  calculateDiscipline,
+  calculateDisciplineCMS,
+};

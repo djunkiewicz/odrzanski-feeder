@@ -1,4 +1,4 @@
-class ArticleCondition {
+class ValidationCondition {
   constructor(checkFunction, failMessage) {
     this.checkFunction = checkFunction;
     this.failMessage = failMessage;
@@ -13,4 +13,4 @@ class ArticleCondition {
   }
 }
 
-module.exports = ArticleCondition;
+module.exports = ValidationCondition;

@@ -1,5 +1,6 @@
 const multer = require("multer");
 const articlesController = require("../controllers/articlesController");
+const competitionsController = require("../controllers/competitionsController");
 
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -129,6 +130,10 @@ module.exports = function (app, passport) {
   });
 
   app.post("/cms/competitions/new", checkAuthenticated, async (req, res) => {
-    console.log(req.body);
+    const result = await competitionsController.saveNewCompetition(req.body);
+    res.render("./cms/cmsCompetitions.ejs", {
+      response: result,
+      originalReq: req.body,
+    });
   });
 };

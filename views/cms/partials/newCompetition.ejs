@@ -1,79 +1,116 @@
+<% const keepData = (locals.response && !locals.response.validationStatus && locals.originalReq)%>
+<% const nameTextHolder = keepData ? locals.originalReq.name : ""; %>
+<% const feederCheckHolder = keepData ? locals.originalReq.disciplineFeeder : false; %>
+<% const methodFeederCheckHolder = keepData ? locals.originalReq.disciplineMethodFeeder : false; %>
+<% const floatCheckHolder = keepData ? locals.originalReq.disciplineFloat : false; %>
+<% const spinningCheckHolder = keepData ? locals.originalReq.disciplineSpinning : false; %>
+<% const selectLocationHolder = keepData ? locals.originalReq.selectLocation : false; %>
+<% const locationTextHolder = keepData ? locals.originalReq.location : ""; %>
+<% const dateTimePickerHolder = keepData ? locals.originalReq.dateTimePicker : false; %>
+<% const scopeHolder = keepData ? locals.originalReq.scope : false; %>
+<% const notesTextHolder = keepData ? locals.originalReq.notes : ""; %>
+<%= console.log(dateTimePickerHolder) %>
+<%= console.log(scopeHolder) %>
+<%= console.log(locationTextHolder) %>
+<%= console.log(selectLocationHolder) %>
+<%= console.log(feederCheckHolder) %>
+<%= console.log(methodFeederCheckHolder) %>
+<%= console.log(spinningCheckHolder) %>
+<%= console.log(floatCheckHolder) %>
+
+
+
 <h1>Wypełnij formularz i dodaj NOWE wydarzenie!</h1>
+
+<% if (locals.response && locals.response.validationStatus) { %>
+<div class="alert alert-success" role="alert">
+  <h1>Pomyślnie dodano wydarzenie 🎉</h1>
+</div>
+<% } else if(locals.response && !locals.response.validationStatus) { %>
+<div class="alert alert-warning" role="alert">
+  <h1>Nie udało się dodać wydarzenia:</h1>
+  <ul>
+    <% locals.response.message.forEach(element => { %>
+    <li><%= element %></li>
+    <% }) %>
+  </ul>
+</div>
+<%}%>
 
 <form action="/cms/competitions/new" method="POST">
   <div class="mb-3">
     <label for="name" class="form-label">Nazwa wydarzenia</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia">
-  </div>
+    <input type="text" value="<%= nameTextHolder %>" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia" required minlength="10" maxlength="100">
+</div>
 
+<div class="mb-3">
+  <h2>Dozwolone dyscypliny</h2>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineFeeder" id="discipline-feeder" <% if (feederCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-feeder">
+      Feeder klasyczny
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineMethodFeeder" id="discipline-method-feeder" <% if (methodFeederCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-method-feeder">
+      Metoda
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineFloat" id="discipline-float" <% if (floatCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-float">
+      Spławik
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineSpinning" id="discipline-spinning" <% if (spinningCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-spinning">
+      Spinning
+    </label>
+  </div>
+</div>
+
+<div class="mb-3">
+  <h2>Miejsce/Łowisko</h2>
+  <select class="form-select" id="select-location" name="selectLocation" aria-label="Default select example">
+    <option value="" selected>Wybierz...</option>
+    <option <% if (selectLocationHolder === "1") { %>selected<% } %> value="1">Wprowadź łowisko z poza listy</option>
+    <option <% if (selectLocationHolder === "Odra ul. Pasterska 'Leclerk'") { %>selected<% } %> value="Odra ul. Pasterska 'Leclerk'">Odra ul. Pasterska "Leclerk"</option>
+    <option <% if (selectLocationHolder === "Odra ul. Zawalna") { %>selected<% } %> value="Odra ul. Zawalna">Odra ul. Zawalna</option>
+    <option <% if (selectLocationHolder === "Odra ul. Bujwida") { %>selected<% } %> value="Odra ul. Bujwida">Odra ul. Bujwida</option>
+    <option <% if (selectLocationHolder === "Kanał powodziowy (ul. Folwarczna)") { %>selected<% } %> value="Kanał powodziowy (ul. Folwarczna)">Kanał powodziowy (ul. Folwarczna)</option>
+    <option <% if (selectLocationHolder === "Odra 'Rędzin'") { %>selected<% } %> value="Odra 'Rędzin'">Odra "Rędzin"</option>
+    <option <% if (selectLocationHolder === "Odra 'Łany'") { %>selected<% } %> value="Odra 'Łany'">Odra "Łany"</option>
+    <option <% if (selectLocationHolder === "Stawy w Leśnicy") { %>selected<% } %> value="Stawy w Leśnicy">Stawy w Leśnicy</option>
+    <option <% if (selectLocationHolder === "Zbiornik w Łagiewnikach") { %>selected<% } %> value="Zbiornik w Łagiewnikach">Zbiornik w Łagiewnikach</option>
+  </select>
   <div class="mb-3">
-    <h2>Dozwolone dyscypliny</h2>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="disciplineFeeder" id="discipline-feeder">
-      <label class="form-check-label" for="discipline-feeder">
-        Feeder klasyczny
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="disciplineMethodFeeder" id="discipline-method-feeder">
-      <label class="form-check-label" for="discipline-method-feeder">
-        Metoda
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="disciplineFloat" id="discipline-float">
-      <label class="form-check-label" for="discipline-float">
-        Spławik
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="disciplineSpinning" id="discipline-spinning">
-      <label class="form-check-label" for="discipline-spinning">
-        Spinning
-      </label>
-    </div>
+    <label for="location" class="form-label">Miejsce</label>
+    <input type="text" class="form-control" id="location" name="location" placeholder="Wprowadź nazwę łowiska" value="<%= locationTextHolder %>">
   </div>
+</div>
 
-  <div class="mb-3">
-    <h2>Miejsce/Łowisko</h2>
-    <select class="form-select" id="select-location" name="selectLocation" aria-label="Default select example">
-      <option value="" selected>Wybierz...</option>
-      <option value="1">Wprowadź łowisko z poza listy</option>
-      <option value="2">Odra ul. Pasterska "Leclerk"</option>
-      <option value="3">Odra ul. Zawalna</option>
-      <option value="4">Odra ul. Bujwida</option>
-      <option value="5">Kanał powodziowy (ul. Folwarczna)</option>
-      <option value="6">Odra "Rędzin"</option>
-      <option value="7">Odra "Łany"</option>
-      <option value="8">Stawy w Leśnicy</option>
-      <option value="9">Zbiornik w Łagiewnikach</option>
-    </select>
-    <div class="mb-3">
-      <label for="location" class="form-label">Miejsce</label>
-      <input type="text" class="form-control" id="location" name="location" placeholder="Wprowadź nazwę łowiska">
-    </div>
-  </div>
+<div class="mb-3">
+  <h2>Kategoria</h2>
+  <select class="form-select" id="scope" name="scope" aria-label="Default select example">
+    <option value="" selected>Wybierz...</option>
+    <option <% if (scopeHolder === "KLUBOWE") { %>selected<% } %> value="KLUBOWE">KLUBOWE</option>
+    <option <% if (scopeHolder === "KOŁOWE") { %>selected<% } %> value="KOŁOWE">KOŁOWE</option>
+    <option <% if (scopeHolder === "OKRĘGOWE") { %>selected<% } %> value="OKRĘGOWE">OKRĘGOWE</option>
+  </select>
+</div>
 
-  <div class="mb-3">
-    <h2>Kategoria</h2>
-    <select class="form-select" id="scope" name="scope" aria-label="Default select example">
-      <option value="" selected>Wybierz...</option>
-      <option value="1">KLUBOWE</option>
-      <option value="2">KOŁOWE</option>
-      <option value="3">OKRĘGOWE</option>
-    </select>
-  </div>
+<div class="mb-3">
+  <h2>Data wydarzenia i godzina zbiórki</h2>
+  <input value="<%= dateTimePickerHolder %>" type="datetime-local" id="date-time-picker" name="dateTimePicker" required>
+</div>
 
-  <div class="mb-3">
-    <h2>Data wydarzenia i godzina zbiórki</h2>
-    <input type="datetime-local" id="date-time-picker" name="dateTimePicker">
-  </div>
+<div class="mb-3">
+  <label for="notes" class="form-label">Uwagi</label>
+  <textarea class="form-control" id="notes" name="notes" rows="2"><%= notesTextHolder %></textarea>
+</div>
 
-  <div class="mb-3">
-    <label for="notes" class="form-label">Uwagi</label>
-    <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Dodaj wydarzenie</button>
+<button type="submit" class="btn btn-primary">Dodaj wydarzenie</button>
 
 </form>

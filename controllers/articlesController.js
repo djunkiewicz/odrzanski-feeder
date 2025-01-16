@@ -1,7 +1,7 @@
 const articlesRepository = require("../repositories/articlesRepository");
 const fs = require("node:fs/promises");
 const { rimrafSync } = require("rimraf");
-const ArticleCondition = require("../classes/ArticleCondition");
+const ValidationCondition = require("../classes/ValidationCondition");
 
 async function getAllArticles() {
   const result = await articlesRepository.getAllArticles();
@@ -117,11 +117,11 @@ function validateArticleRequest(body) {
   let validationStatus = true;
   const message = [];
   const conditions = [
-    new ArticleCondition(
+    new ValidationCondition(
       (body) => body.name.length > 5,
       "Invalid name, minimum 5 characters"
     ),
-    new ArticleCondition(
+    new ValidationCondition(
       (body) => body.content.length > 6,
       "Article content is too short, minimum 6 characters"
     ),
