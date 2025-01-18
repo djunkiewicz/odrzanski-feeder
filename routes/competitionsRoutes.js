@@ -29,6 +29,17 @@ module.exports = function (app) {
     res.render("regulations.ejs");
   });
 
+  app.get("/data/competitions/brief", async (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const pageSize = req.query.pageSize;
+    const [competitions, totalCompetitions] =
+      await competitionsController.getCompetitionsBriefForSinglePage(
+        pageNumber,
+        pageSize
+      );
+    res.json({ competitions, totalCompetitions });
+  });
+
   app.post("/schedule/find", async (req, res) => {
     const competitions = await competitionsController.getCompetitionsByCriteria(
       req.body

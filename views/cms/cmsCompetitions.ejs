@@ -4,7 +4,7 @@
   <a class="btn btn-primary" href="/cms/competitions?action=new" role="button">Dodaj nowe wydarzenie</a>
   <a class="btn btn-primary" href="/cms/competitions?action=edit" role="button">Edytuj istniejące</a>
   <% if (locals.action === "edit") { %>
-  <%- include('./partials/editExistingArticle') %>
+  <%- include('./partials/editExistingCompetition') %>
   <% } else { %>
   <%- include('./partials/newCompetition') %>
   <% } %>

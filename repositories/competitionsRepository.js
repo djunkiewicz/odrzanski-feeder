@@ -66,9 +66,29 @@ function calculateDisciplineCMS(criteria) {
   return discipline;
 }
 
+async function getCompetitionsForSinglePage(pageNumber, pageSize) {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT COUNT(*) AS totalCompetitions FROM competitions"
+    );
+    const totalCompetitions = rows[0].totalCompetitions;
+    const totalPages = Math.ceil(totalCompetitions / pageSize);
+
+    const offset = (pageNumber - 1) * pageSize;
+    const [rows2, fields2] = await pool.query(
+      "SELECT * FROM competitions ORDER BY creation_date DESC LIMIT ? OFFSET ?",
+      [+pageSize, offset]
+    );
+    return [rows2, totalCompetitions];
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
   calculateDiscipline,
   calculateDisciplineCMS,
+  getCompetitionsForSinglePage,
 };

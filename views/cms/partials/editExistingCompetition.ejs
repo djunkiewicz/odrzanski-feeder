@@ -1,0 +1,70 @@
+<h2>EDYTUJ wybrany artykuł</h2>
+
+<% if (locals.competitionToEdit || locals.originalReq) { %>
+<%- include('./editArticle') %>
+<% } else { %>
+<%- include('./selectCompetition') %>
+<%}%>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Wymagane potwierdzenie</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć wybrane wydarzenie?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+        <div id="cms-confirmation-btn"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/components/competition.js"></script>
+<script src="/pagination.js"></script>
+<link rel="stylesheet" href="/styles/pagination.css" />
+
+
+<script>
+  document.body.addEventListener("click", (event) => {
+    const needConfirmation = event.target.getAttribute("need-confirmation") === "true";
+    if (needConfirmation) {
+      $("#cms-confirmation-btn").empty();
+      $("#cms-confirmation-btn").append(Competition.createDeleteButton("/cms/competitions/delete", "POST", event.target.value));
+    }
+  })
+</script>
+
+<% if (!locals.competitionToEdit) { %>
+<script>
+  function renderSinglePage(selectedCompetitions) {
+    $("#cms-competition-container").empty();
+    selectedCompetitions.forEach(element => {
+      const competition = new Competition(element);
+      $("#cms-competition-container").append(competition.getCmsCard());
+    });
+  }
+
+  $('#cms-pagination-container').pagination({
+    pageSize: 4,
+    className: 'paginationjs-big',
+    showGoInput: true,
+    showGoButton: true,
+    locator: "competitions",
+    dataSource: "/data/competitions/brief",
+    totalNumberLocator: function(response) {
+      console.log(response);
+      return response.totalCompetitions;
+    },
+    callback: function(data, pagination) {
+      renderSinglePage(data);
+    }
+  });
+</script>
+<% } else { %>
+<script></script>
+<%}%>

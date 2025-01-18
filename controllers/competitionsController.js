@@ -28,10 +28,21 @@ async function saveNewCompetition(body) {
   return result;
 }
 
+async function getCompetitionsBriefForSinglePage(pageNumber, pageSize) {
+  [competitions, totalCompetitions] = await competitionsRepository.getCompetitionsForSinglePage(
+    pageNumber,
+    pageSize
+  );
+  if (competitions.length > 0) {
+    return [competitions, totalCompetitions];
+  } else return null;
+}
+
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
   saveNewCompetition,
+  getCompetitionsBriefForSinglePage
 };
 
 function validateCompetitionRequest(body) {

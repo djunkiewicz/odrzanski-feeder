@@ -65,6 +65,7 @@ class ScheduleTable {
 
     return table;
   }
+
 }
 
 function createTableRow(data, index, indexColumnFlag) {
