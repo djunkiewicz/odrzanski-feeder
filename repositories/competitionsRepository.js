@@ -143,7 +143,6 @@ async function saveNewCompetition(record) {
         record.notes,
       ]
     );
-    console.log(record);
   } catch (err) {
     console.log(err);
   }

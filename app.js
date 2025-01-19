@@ -34,6 +34,10 @@ require("./routes/competitionsRoutes")(app);
 require("./routes/informationRoutes")(app);
 require("./routes/cmsRoutes")(app, passport);
 
+app.get("*", (req, res) => {
+  res.render("default_pages/404.ejs");
+});
+
 app.listen(port, () => {
   console.log(`Your app is running on port: ${port}`);
 });
