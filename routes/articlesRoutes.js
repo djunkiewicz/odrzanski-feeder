@@ -40,7 +40,10 @@ module.exports = function (app) {
     try {
       const articleId = req.params.id;
       const article = await articlesController.getArticleById(articleId);
-      res.render("singleArticle.ejs", { article: article });
+      res.render("singleArticle.ejs", {
+        article: article,
+        articleURL: `localhost:3000/article/${article.id}`,
+      });
     } catch (error) {
       res.render("default_pages/400.ejs");
     }
