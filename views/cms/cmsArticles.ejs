@@ -1,5 +1,8 @@
 <%- include('./partials/cmsHeader') %>
-<div class="container">
+<div class="loader">
+  <h1>Trwa ładowanie strony</h1>
+</div>
+<div class="container content" style="display: none;">
   <h1>Poniżej możesz dodać nowy artykuł lub edytować juz istniejące.</h1>
   <a class="btn btn-primary" href="/cms/articles?action=new" role="button">Dodaj nowy</a>
   <a class="btn btn-primary" href="/cms/articles?action=edit" role="button">Edytuj istniejący</a>
@@ -9,4 +12,10 @@
   <%- include('./partials/newArticle') %>
   <% } %>
 </div>
+<script>
+  window.addEventListener("load", function() {
+    $('.loader').css('display', 'none');
+    $('.content').css('display', 'block');
+  })
+</script>
 <%- include('./partials/cmsFooter') %>
