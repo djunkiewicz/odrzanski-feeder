@@ -117,6 +117,38 @@ async function updateCompetition(record) {
   }
 }
 
+async function deleteCompetition(id) {
+  try {
+    const [rows, fields] = await pool.query(
+      "DELETE FROM competitions WHERE id = ?;",
+      [id]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function saveNewCompetition(record) {
+  try {
+    const [rows, fields] = await pool.query(
+      "INSERT INTO competitions (name, discipline, location_name, scope, event_date, event_time, creation_date, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        record.name,
+        record.discipline,
+        record.location_name,
+        record.scope,
+        record.event_date,
+        record.event_time,
+        record.creation_date,
+        record.notes,
+      ]
+    );
+    console.log(record);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
@@ -125,4 +157,6 @@ module.exports = {
   getCompetitionsForSinglePage,
   getCompetitionById,
   updateCompetition,
+  deleteCompetition,
+  saveNewCompetition,
 };

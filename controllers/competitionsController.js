@@ -25,7 +25,7 @@ async function getCompetitionsByCriteria(criteria) {
 async function saveNewCompetition(body) {
   const result = validateCompetitionRequest(body);
   if (result.validationStatus) {
-    // await articlesRepository.saveNewArticle(result.articleRecord);
+    await competitionsRepository.saveNewCompetition(result.competitionRecord);
     console.log("Saving new competition...");
   } else {
     console.log("Not saving competition...");
@@ -81,6 +81,10 @@ async function updateCompetition(body) {
   return result;
 }
 
+async function deleteCompetition(id) {
+  await competitionsRepository.deleteCompetition(id);
+}
+
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
@@ -88,6 +92,7 @@ module.exports = {
   getCompetitionsBriefForSinglePage,
   getCompetitionById,
   updateCompetition,
+  deleteCompetition,
 };
 
 function validateCompetitionRequest(body) {
