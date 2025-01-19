@@ -10,27 +10,39 @@ module.exports = function (app) {
   });
 
   app.get("/data/articles", async (req, res) => {
-    const pageNumber = req.query.pageNumber;
-    const pageSize = req.query.pageSize;
-    const [articles, totalArticles] =
-      await articlesController.getArticlesForSinglePage(pageNumber, pageSize);
-    res.json({ articles, totalArticles });
+    try {
+      const pageNumber = req.query.pageNumber;
+      const pageSize = req.query.pageSize;
+      const [articles, totalArticles] =
+        await articlesController.getArticlesForSinglePage(pageNumber, pageSize);
+      res.json({ articles, totalArticles });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.get("/data/articles/brief", async (req, res) => {
-    const pageNumber = req.query.pageNumber;
-    const pageSize = req.query.pageSize;
-    const [articles, totalArticles] =
-      await articlesController.getArticlesBriefForSinglePage(
-        pageNumber,
-        pageSize
-      );
-    res.json({ articles, totalArticles });
+    try {
+      const pageNumber = req.query.pageNumber;
+      const pageSize = req.query.pageSize;
+      const [articles, totalArticles] =
+        await articlesController.getArticlesBriefForSinglePage(
+          pageNumber,
+          pageSize
+        );
+      res.json({ articles, totalArticles });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.get("/article/:id", async (req, res) => {
-    const articleId = req.params.id;
-    const article = await articlesController.getArticleById(articleId);
-    res.render("singleArticle.ejs", { article: article });
+    try {
+      const articleId = req.params.id;
+      const article = await articlesController.getArticleById(articleId);
+      res.render("singleArticle.ejs", { article: article });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 };

@@ -55,17 +55,25 @@ module.exports = function (app, passport) {
   });
 
   app.get("/cms/articles", checkAuthenticated, async (req, res) => {
-    const action = req.query.action === "edit" ? "edit" : "new";
-    res.render("./cms/cmsArticles.ejs", {
-      action: action,
-    });
+    try {
+      const action = req.query.action === "edit" ? "edit" : "new";
+      res.render("./cms/cmsArticles.ejs", {
+        action: action,
+      });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.get("/cms/competitions", checkAuthenticated, (req, res) => {
-    const action = req.query.action === "edit" ? "edit" : "new";
-    res.render("./cms/cmsCompetitions.ejs", {
-      action: action,
-    });
+    try {
+      const action = req.query.action === "edit" ? "edit" : "new";
+      res.render("./cms/cmsCompetitions.ejs", {
+        action: action,
+      });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.post("/cms/articles/new", checkAuthenticated, (req, res) => {
@@ -75,39 +83,50 @@ module.exports = function (app, passport) {
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
       } else {
-        const result = await articlesController.saveNewArticle(
-          req.body,
-          req.files
-        );
-        res.render("./cms/cmsArticles.ejs", {
-          response: result,
-          originalReq: req.body,
-        });
+        try {
+          const result = await articlesController.saveNewArticle(
+            req.body,
+            req.files
+          );
+          res.render("./cms/cmsArticles.ejs", {
+            response: result,
+            originalReq: req.body,
+          });
+        } catch (error) {
+          res.render("default_pages/400.ejs");
+        }
       }
     });
   });
 
   app.get("/cms/articles/edit/:id", checkAuthenticated, async (req, res) => {
-    const articleToEdit = await articlesController.getArticleById(
-      req.params.id
-    );
-    res.render("./cms/cmsArticles.ejs", {
-      action: "edit",
-      articleToEdit: articleToEdit,
-    });
+    try {
+      const articleToEdit = await articlesController.getArticleById(
+        req.params.id
+      );
+      res.render("./cms/cmsArticles.ejs", {
+        action: "edit",
+        articleToEdit: articleToEdit,
+      });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.get(
     "/cms/competitions/edit/:id",
     checkAuthenticated,
     async (req, res) => {
-      const competitionToEdit = await competitionsController.getCompetitionById(
-        req.params.id
-      );
-      res.render("./cms/cmsCompetitions.ejs", {
-        action: "edit",
-        competitionToEdit: competitionToEdit,
-      });
+      try {
+        const competitionToEdit =
+          await competitionsController.getCompetitionById(req.params.id);
+        res.render("./cms/cmsCompetitions.ejs", {
+          action: "edit",
+          competitionToEdit: competitionToEdit,
+        });
+      } catch (error) {
+        res.render("default_pages/400.ejs");
+      }
     }
   );
 
@@ -121,55 +140,75 @@ module.exports = function (app, passport) {
         res.send(err.message);
         // ogarnąc jakąs jeszcze komunikat o zbyt dużym pliku
       } else {
-        const result = await articlesController.updateArticle(
-          req.body,
-          req.files
-        );
-        const articleToEdit = result.validationStatus
-          ? await articlesController.getArticleById(req.body.id)
-          : null;
-        res.render("./cms/cmsArticles.ejs", {
-          response: result,
-          originalReq: req.body,
-          articleToEdit: articleToEdit,
-          action: "edit",
-        });
+        try {
+          const result = await articlesController.updateArticle(
+            req.body,
+            req.files
+          );
+          const articleToEdit = result.validationStatus
+            ? await articlesController.getArticleById(req.body.id)
+            : null;
+          res.render("./cms/cmsArticles.ejs", {
+            response: result,
+            originalReq: req.body,
+            articleToEdit: articleToEdit,
+            action: "edit",
+          });
+        } catch (error) {
+          res.render("default_pages/400.ejs");
+        }
       }
     });
   });
 
   app.post("/cms/competitions/edit", checkAuthenticated, async (req, res) => {
-    const result = await competitionsController.updateCompetition(req.body);
-    const competitionToEdit = result.validationStatus
-      ? await competitionsController.getCompetitionById(req.body.id)
-      : null;
-    res.render("./cms/cmsCompetitions.ejs", {
-      response: result,
-      originalReq: req.body,
-      competitionToEdit: competitionToEdit,
-      action: "edit",
-    });
+    try {
+      const result = await competitionsController.updateCompetition(req.body);
+      const competitionToEdit = result.validationStatus
+        ? await competitionsController.getCompetitionById(req.body.id)
+        : null;
+      res.render("./cms/cmsCompetitions.ejs", {
+        response: result,
+        originalReq: req.body,
+        competitionToEdit: competitionToEdit,
+        action: "edit",
+      });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.delete("/cms/articles/delete", checkAuthenticated, async (req, res) => {
-    await articlesController.deleteArticle(+req.body.id);
-    res.redirect("/cms/articles?action=edit");
+    try {
+      await articlesController.deleteArticle(+req.body.id);
+      res.redirect("/cms/articles?action=edit");
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 
   app.delete(
     "/cms/competitions/delete",
     checkAuthenticated,
     async (req, res) => {
-      await competitionsController.deleteCompetition(+req.body.id);
-      res.redirect("/cms/competitions?action=edit");
+      try {
+        await competitionsController.deleteCompetition(+req.body.id);
+        res.redirect("/cms/competitions?action=edit");
+      } catch (error) {
+        res.render("default_pages/400.ejs");
+      }
     }
   );
 
   app.post("/cms/competitions/new", checkAuthenticated, async (req, res) => {
-    const result = await competitionsController.saveNewCompetition(req.body);
-    res.render("./cms/cmsCompetitions.ejs", {
-      response: result,
-      originalReq: req.body,
-    });
+    try {
+      const result = await competitionsController.saveNewCompetition(req.body);
+      res.render("./cms/cmsCompetitions.ejs", {
+        response: result,
+        originalReq: req.body,
+      });
+    } catch (error) {
+      res.render("default_pages/400.ejs");
+    }
   });
 };
