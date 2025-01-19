@@ -1,6 +1,11 @@
 const competitionsRepository = require("../repositories/competitionsRepository");
 const ValidationCondition = require("../classes/ValidationCondition");
 
+const classicFeederMask = 0b00000001;
+const methodFeederMask = 0b00000010;
+const spinningMask = 0b00000100;
+const floatMask = 0b00001000;
+
 async function getAllCompetitions() {
   const result = await competitionsRepository.getAllCompetitions();
   if (result.length > 0) {
@@ -29,20 +34,60 @@ async function saveNewCompetition(body) {
 }
 
 async function getCompetitionsBriefForSinglePage(pageNumber, pageSize) {
-  [competitions, totalCompetitions] = await competitionsRepository.getCompetitionsForSinglePage(
-    pageNumber,
-    pageSize
-  );
+  [competitions, totalCompetitions] =
+    await competitionsRepository.getCompetitionsForSinglePage(
+      pageNumber,
+      pageSize
+    );
   if (competitions.length > 0) {
     return [competitions, totalCompetitions];
   } else return null;
+}
+
+async function getCompetitionById(id) {
+  const result = await competitionsRepository.getCompetitionById(id);
+  const competition = result[0];
+  if ((competition.discipline & classicFeederMask) === classicFeederMask) {
+    competition.disciplineFeeder = "on";
+  }
+  if ((competition.discipline & methodFeederMask) === methodFeederMask) {
+    competition.disciplineMethodFeeder = "on";
+  }
+  if ((competition.discipline & spinningMask) === spinningMask) {
+    competition.disciplineSpinning = "on";
+  }
+  if ((competition.discipline & floatMask) === floatMask) {
+    competition.disciplineFloat = "on";
+  }
+  const [day, month, year] = competition.event_date
+    .toLocaleDateString()
+    .slice(0, 10)
+    .split(".");
+  const dateTimePicker = `${year}-${month}-${day}T${String(
+    competition.event_time.slice(0, 5)
+  )}`;
+  competition.dateTimePicker = dateTimePicker;
+  return competition;
+}
+
+async function updateCompetition(body) {
+  const result = validateCompetitionRequest(body);
+  if (result.validationStatus) {
+    await competitionsRepository.updateCompetition(result.competitionRecord);
+    console.log("Updating competition...");
+  } else {
+    console.log("Not updating competition...");
+  }
+  return result;
 }
 
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
   saveNewCompetition,
-  getCompetitionsBriefForSinglePage
+  getCompetitionsBriefForSinglePage,
+  getCompetitionById,
+  updateCompetition,
 };
 
 function validateCompetitionRequest(body) {

@@ -34,7 +34,7 @@ class Competition {
 
     const editBtn = document.createElement("a");
     editBtn.classList.add("btn", "btn-info");
-    editBtn.href = `/cms/competition/edit/${this.id}`;
+    editBtn.href = `/cms/competitions/edit/${this.id}`;
     editBtn.role = "button";
     editBtn.textContent = "Edytuj";
 

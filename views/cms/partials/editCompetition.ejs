@@ -1,0 +1,110 @@
+<% const keepData = (locals.response && !locals.response.validationStatus && locals.originalReq)%>
+<% const nameTextHolder = keepData ? locals.originalReq.name : locals.competitionToEdit.name; %>
+<% const feederCheckHolder = keepData ? locals.originalReq.disciplineFeeder : locals.competitionToEdit.disciplineFeeder; %>
+<% const methodFeederCheckHolder = keepData ? locals.originalReq.disciplineMethodFeeder : locals.competitionToEdit.disciplineMethodFeeder; %>
+<% const floatCheckHolder = keepData ? locals.originalReq.disciplineFloat : locals.competitionToEdit.disciplineFloat; %>
+<% const spinningCheckHolder = keepData ? locals.originalReq.disciplineSpinning : locals.competitionToEdit.disciplineSpinning; %>
+<% const selectLocationHolder = keepData ? locals.originalReq.selectLocation : "1"; %>
+<% const locationTextHolder = keepData ? locals.originalReq.location : locals.competitionToEdit.location_name; %>
+<% const dateTimePickerHolder = keepData ? locals.originalReq.dateTimePicker : locals.competitionToEdit.dateTimePicker; %>
+<% const scopeHolder = keepData ? locals.originalReq.scope : locals.competitionToEdit.scope; %>
+<% const notesTextHolder = keepData ? locals.originalReq.notes : locals.competitionToEdit.notes; %>
+<% const idBuffor = keepData ? locals.originalReq.id : locals.competitionToEdit.id; %>
+
+
+
+<h1>Wypełnij formularz by edytować wybrane wydarzenie</h1>
+
+<% if (locals.response && locals.response.validationStatus) { %>
+<div class="alert alert-success" role="alert">
+  <h1>Pomyślnie edytowano wydarzenie 🎉</h1>
+</div>
+<% } else if(locals.response && !locals.response.validationStatus) { %>
+<div class="alert alert-warning" role="alert">
+  <h1>Nie udało się edytować wydarzenia:</h1>
+  <ul>
+    <% locals.response.message.forEach(element => { %>
+    <li><%= element %></li>
+    <% }) %>
+  </ul>
+</div>
+<%}%>
+
+<form action="/cms/competitions/edit" method="POST">
+  <input type="hidden" name="id" value="<%= idBuffor %>">
+<div class="mb-3">
+  <label for="name" class="form-label">Nazwa wydarzenia</label>
+  <input type="text" value="<%= nameTextHolder %>" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia" required minlength="10" maxlength="100">
+</div>
+
+<div class="mb-3">
+  <h2>Dozwolone dyscypliny</h2>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineFeeder" id="discipline-feeder" <% if (feederCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-feeder">
+      Feeder klasyczny
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineMethodFeeder" id="discipline-method-feeder" <% if (methodFeederCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-method-feeder">
+      Metoda
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineFloat" id="discipline-float" <% if (floatCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-float">
+      Spławik
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="disciplineSpinning" id="discipline-spinning" <% if (spinningCheckHolder === "on") { %>checked<% } %>>
+    <label class="form-check-label" for="discipline-spinning">
+      Spinning
+    </label>
+  </div>
+</div>
+
+<div class="mb-3">
+  <h2>Miejsce/Łowisko</h2>
+  <select class="form-select" id="select-location" name="selectLocation" aria-label="Default select example">
+    <option value="" selected>Wybierz...</option>
+    <option <% if (selectLocationHolder === "1") { %>selected<% } %> value="1">Wprowadź łowisko z poza listy</option>
+    <option <% if (selectLocationHolder === "Odra ul. Pasterska 'Leclerk'") { %>selected<% } %> value="Odra ul. Pasterska 'Leclerk'">Odra ul. Pasterska "Leclerk"</option>
+    <option <% if (selectLocationHolder === "Odra ul. Zawalna") { %>selected<% } %> value="Odra ul. Zawalna">Odra ul. Zawalna</option>
+    <option <% if (selectLocationHolder === "Odra ul. Bujwida") { %>selected<% } %> value="Odra ul. Bujwida">Odra ul. Bujwida</option>
+    <option <% if (selectLocationHolder === "Kanał powodziowy (ul. Folwarczna)") { %>selected<% } %> value="Kanał powodziowy (ul. Folwarczna)">Kanał powodziowy (ul. Folwarczna)</option>
+    <option <% if (selectLocationHolder === "Odra 'Rędzin'") { %>selected<% } %> value="Odra 'Rędzin'">Odra "Rędzin"</option>
+    <option <% if (selectLocationHolder === "Odra 'Łany'") { %>selected<% } %> value="Odra 'Łany'">Odra "Łany"</option>
+    <option <% if (selectLocationHolder === "Stawy w Leśnicy") { %>selected<% } %> value="Stawy w Leśnicy">Stawy w Leśnicy</option>
+    <option <% if (selectLocationHolder === "Zbiornik w Łagiewnikach") { %>selected<% } %> value="Zbiornik w Łagiewnikach">Zbiornik w Łagiewnikach</option>
+  </select>
+  <div class="mb-3">
+    <label for="location" class="form-label">Miejsce</label>
+    <input type="text" class="form-control" id="location" name="location" placeholder="Wprowadź nazwę łowiska" value="<%= locationTextHolder %>">
+  </div>
+</div>
+
+<div class="mb-3">
+  <h2>Kategoria</h2>
+  <select class="form-select" id="scope" name="scope" aria-label="Default select example">
+    <option value="" selected>Wybierz...</option>
+    <option <% if (scopeHolder === "KLUBOWE") { %>selected<% } %> value="KLUBOWE">KLUBOWE</option>
+    <option <% if (scopeHolder === "KOŁOWE") { %>selected<% } %> value="KOŁOWE">KOŁOWE</option>
+    <option <% if (scopeHolder === "OKRĘGOWE") { %>selected<% } %> value="OKRĘGOWE">OKRĘGOWE</option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <h2>Data wydarzenia i godzina zbiórki</h2>
+  <input value="<%= dateTimePickerHolder %>" type="datetime-local" id="date-time-picker" name="dateTimePicker" required>
+</div>
+
+<div class="mb-3">
+  <label for="notes" class="form-label">Uwagi</label>
+  <textarea class="form-control" id="notes" name="notes" rows="2"><%= notesTextHolder %></textarea>
+</div>
+
+<button type="submit" class="btn btn-primary">Edytuj wydarzenie</button>
+
+</form>

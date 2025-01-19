@@ -97,6 +97,20 @@ module.exports = function (app, passport) {
     });
   });
 
+  app.get(
+    "/cms/competitions/edit/:id",
+    checkAuthenticated,
+    async (req, res) => {
+      const competitionToEdit = await competitionsController.getCompetitionById(
+        req.params.id
+      );
+      res.render("./cms/cmsCompetitions.ejs", {
+        action: "edit",
+        competitionToEdit: competitionToEdit,
+      });
+    }
+  );
+
   app.post("/cms/articles/edit", checkAuthenticated, (req, res) => {
     upload.array("images")(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
@@ -124,10 +138,32 @@ module.exports = function (app, passport) {
     });
   });
 
+  app.post("/cms/competitions/edit", checkAuthenticated, async (req, res) => {
+    const result = await competitionsController.updateCompetition(req.body);
+    const competitionToEdit = result.validationStatus
+      ? await competitionsController.getCompetitionById(req.body.id)
+      : null;
+    res.render("./cms/cmsCompetitions.ejs", {
+      response: result,
+      originalReq: req.body,
+      competitionToEdit: competitionToEdit,
+      action: "edit",
+    });
+  });
+
   app.delete("/cms/articles/delete", checkAuthenticated, async (req, res) => {
     await articlesController.deleteArticle(+req.body.id);
     res.redirect("/cms/articles?action=edit");
   });
+
+  app.delete(
+    "/cms/competitions/delete",
+    checkAuthenticated,
+    async (req, res) => {
+      await competitionsController.deleteCompetition(+req.body.id);
+      res.redirect("/cms/competitions?action=edit");
+    }
+  );
 
   app.post("/cms/competitions/new", checkAuthenticated, async (req, res) => {
     const result = await competitionsController.saveNewCompetition(req.body);

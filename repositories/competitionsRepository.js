@@ -85,10 +85,44 @@ async function getCompetitionsForSinglePage(pageNumber, pageSize) {
   }
 }
 
+async function getCompetitionById(id) {
+  try {
+    const [rows, fields] = await pool.query(
+      "SELECT * FROM competitions WHERE id = ?",
+      [id]
+    );
+    return rows;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function updateCompetition(record) {
+  try {
+    const [rows, fields] = await pool.query(
+      "UPDATE competitions SET name = ?, discipline = ?, location_name = ?, scope = ?, event_date = ?, event_time = ?, notes = ? WHERE id = ?;",
+      [
+        record.name,
+        record.discipline,
+        record.location_name,
+        record.scope,
+        record.event_date,
+        record.event_time,
+        record.notes,
+        record.id,
+      ]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getAllCompetitions,
   getCompetitionsByCriteria,
   calculateDiscipline,
   calculateDisciplineCMS,
   getCompetitionsForSinglePage,
+  getCompetitionById,
+  updateCompetition,
 };
