@@ -37,4 +37,35 @@ img {
   transition: transform 0.5s ease-in-out, opacity 1.3s ease;
 }
 
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+#cookie-banner a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+#cookie-banner button {
+  background-color: #ffcc00;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+#cookie-banner button:hover {
+  background-color: #ffaa00;
+}
+
 /* DO NOT EDIT - END */

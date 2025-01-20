@@ -20,6 +20,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="/events.js"></script>
 <script src="/animations.js"></script>
+<script>
+  window.addEventListener("load", function() {
+    $('.loader').css('display', 'none');
+    $('.content').css('display', 'block');
+  })
+  if (!localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookie-banner').style.display = 'block';
+  }
+  document.getElementById('accept-cookie').addEventListener('click', function() {
+    document.getElementById('cookie-banner').style.display = 'none';
+    localStorage.setItem('cookiesAccepted', 'true');
+  });
+</script>
 </body>
 
 </html>
