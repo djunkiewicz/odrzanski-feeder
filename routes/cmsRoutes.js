@@ -18,7 +18,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const storage = multer.memoryStorage(); // Pliki będą przechowywane w pamięci
+const storage = multer.memoryStorage();
 const limits = { fileSize: 3000000 };
 const upload = multer({
   storage: storage,
@@ -80,8 +80,26 @@ module.exports = function (app, passport) {
     upload.array("images")(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.log(`Multer error occurer: ${err.message}`);
+        const result = {
+          validationStatus: false,
+          message: ["Zbyt duża łączna waga plików, maksymalnie 10MB"],
+        };
+        res.render("./cms/cmsArticles.ejs", {
+          response: result,
+          originalReq: req.body,
+        });
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
+        const result = {
+          validationStatus: false,
+          message: [
+            "Nieoczekiwany błąd, sprawdz czy przesłane zdjęcie ma rozszerzenie JPG lub JPEG",
+          ],
+        };
+        res.render("./cms/cmsArticles.ejs", {
+          response: result,
+          originalReq: req.body,
+        });
       } else {
         try {
           const result = await articlesController.saveNewArticle(
@@ -134,11 +152,29 @@ module.exports = function (app, passport) {
     upload.array("images")(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.log(`Multer error occurer: ${err.message}`);
-        res.send(err.message);
+        const result = {
+          validationStatus: false,
+          message: ["Zbyt duża łączna waga plików, maksymalnie 10MB"],
+        };
+        res.render("./cms/cmsArticles.ejs", {
+          response: result,
+          originalReq: req.body,
+          action: "edit",
+        });
       } else if (err) {
         console.log(`Unknown error occured: ${err.message}`);
         res.send(err.message);
-        // ogarnąc jakąs jeszcze komunikat o zbyt dużym pliku
+        const result = {
+          validationStatus: false,
+          message: [
+            "Nieoczekiwany błąd, sprawdz czy przesłane zdjęcie ma rozszerzenie JPG lub JPEG",
+          ],
+        };
+        res.render("./cms/cmsArticles.ejs", {
+          response: result,
+          originalReq: req.body,
+          action: "edit",
+        });
       } else {
         try {
           const result = await articlesController.updateArticle(
