@@ -13,33 +13,36 @@
 
 <body>
   <!-- <div class="container"> -->
-  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom border-dark">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <img id="logo" src="/media/logo.png" style="height: 380px;">
-      <!-- <span class="fs-4">Odrzański feeder</span> -->
+      <img id="logo" src="/media/logo.png">
     </a>
-
-    <ul id="menu" class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link active text-dark bg-info" aria-current="page" href="/">Aktualności</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Zawody</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/schedule">Terminarz</a></li>
-          <li><a class="dropdown-item" href="/registration">Zapisy</a></li>
-          <li><a class="dropdown-item" href="/regulations">Regulamin zawodów feederowych</a></li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Informacje dodatkowe</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/about">O nas</a></li>
-          <li><a class="dropdown-item" href="/contact">Kontakt</a></li>
-          <li><a class="dropdown-item" href="/privacy-policy">Polityka prywatności</a></li>
-        </ul>
-      </li>
-    </ul>
+    <div class="d-flex flex-column justify-content-between align-items-center">
+      <div id="title">
+        <h1>Klub feederowy "Odrzański Feeder"</br> przy kole Odra nr 63</h1>
+      </div>
+      <ul id="menu" class="nav nav-pills align-items-end justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-light" aria-current="page" href="/">AKTUALNOŚCI</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">ZAWODY</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/schedule">Terminarz</a></li>
+            <li><a class="dropdown-item" href="/registration">Zapisy</a></li>
+            <li><a class="dropdown-item" href="/regulations">Regulamin zawodów feederowych</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">INFORMACJE DODATKOWE</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/about">O nas</a></li>
+            <li><a class="dropdown-item" href="/contact">Kontakt</a></li>
+            <li><a class="dropdown-item" href="/privacy-policy">Polityka prywatności</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </header>
   <!-- </div> -->
   <div class="loader">
