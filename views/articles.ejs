@@ -1,8 +1,8 @@
 <%- include("./partials/header.ejs")%>
 
-<div class="container">
-  <h1>Articles page</h1>
-  <div id="articles-container">Aktualności:</div>
+<div id="articles_main" class="container">
+  <h1>Aktualności:</h1>
+  <div id="articles-container"></div>
   <div id="pagination-container"></div>
 </div>
 
@@ -19,7 +19,7 @@
   }
 
   $('#pagination-container').pagination({
-    pageSize: 4,
+    pageSize: 6,
     className: 'paginationjs-big',
     showGoInput: true,
     showGoButton: true,

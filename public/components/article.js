@@ -1,4 +1,4 @@
-const cardTextLength = 20;
+const cardTextLength = 70;
 
 const dateOptions = {
   weekday: "long",
