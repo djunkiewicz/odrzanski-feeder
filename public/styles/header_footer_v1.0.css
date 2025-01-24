@@ -26,6 +26,7 @@ header {
 #menu .nav-link {
   margin-left: 15px;
   background-color: rgb(0, 48, 19);
+  font-size: 18px;
 }
 
 #title {
@@ -36,6 +37,23 @@ header {
   color: rgb(255, 255, 255);
   text-align: end;
   width: fit-content;
+}
+
+#title h1 {
+  font-size: 28px;
+}
+
+#footer {
+  background-image: url("/media/footer_img.jpg");
+  background-size: cover;
+  min-height: 500px;
+}
+
+footer p,
+footer ul li a {
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
@@ -80,10 +98,7 @@ header {
     margin-bottom: 10px;
   }
   #title h1 {
-    font-size: 26px;
-  }
-  #menu * {
-    font-size: 20px;
+    font-size: 22px;
   }
   header a {
     margin-left: auto;
@@ -92,5 +107,17 @@ header {
   #logo {
     margin-left: auto;
     margin-right: auto;
+  }
+  footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  footer a {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #menu .nav-link {
+    font-size: 16px;
   }
 }
