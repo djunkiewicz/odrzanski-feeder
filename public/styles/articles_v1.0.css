@@ -70,3 +70,17 @@
 .article-card-hover img {
   transform: scale(1.25);
 }
+
+#pagination-container {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.paginationjs {
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 75px;
+}
