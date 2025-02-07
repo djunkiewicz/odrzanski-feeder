@@ -34,8 +34,13 @@ class Article {
       dateOptions
     );
 
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("shape");
+
     const image = document.createElement("img");
     image.src = this.photoPaths[0];
+
+    imgContainer.appendChild(image);
 
     const content = document.createElement("p");
     const temp = document.createElement("p");
@@ -45,7 +50,7 @@ class Article {
 
     articleCard.appendChild(title);
     articleCard.appendChild(date);
-    articleCard.appendChild(image);
+    articleCard.appendChild(imgContainer);
     articleCard.appendChild(content);
     link.appendChild(articleCard);
 
