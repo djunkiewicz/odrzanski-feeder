@@ -1,0 +1,34 @@
+#schedule-container #finding-options {
+  padding-left: 50px;
+}
+#schedule-container #year-select {
+  padding-right: 100px;
+}
+
+#schedule-container h1 {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-bottom: 25px;
+}
+
+#schedule-container select,
+#schedule-container label {
+  font-size: 18px;
+}
+
+#schedule-container .form-label {
+  font-size: 28px;
+}
+
+#search-button {
+  margin-bottom: 30px;
+}
+
+.form-check-input:checked {
+  background-color: rgb(24, 181, 0);
+  border-color: rgb(24, 181, 0);
+}
+
+#competitions-container {
+  padding-bottom: 100px;
+}

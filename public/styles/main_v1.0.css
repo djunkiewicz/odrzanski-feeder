@@ -14,6 +14,7 @@ body {
 
 .content > .container {
   background-color: rgb(35, 35, 35);
+  min-height: 60vh;
 }
 
 main {
@@ -48,6 +49,9 @@ main {
   text-align: center;
   font-size: 14px;
   z-index: 1000;
+  height: 20vh;
+  font-size: 22px;
+  padding: 50px;
 }
 
 #cookie-banner a {

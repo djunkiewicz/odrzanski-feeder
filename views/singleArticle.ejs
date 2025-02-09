@@ -1,6 +1,6 @@
 <%- include("./partials/header.ejs")%>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v17.0"></script>
-
+<script defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v17.0">
+</script>
 <div class="container">
   <% if(locals.article) { %>
   <div class="container">
@@ -33,7 +33,7 @@
     <p class="article-content"><%- article.content %></p>
     <div class="end-group">
       <button class="btn btn-success btn-lg" onclick="history.back();">Powrót do aktualności</button>
-      <div class="fb-share-button" data-href="https://www.youtube.com/watch?v=f43nR8Wu_1Y&list=RDf43nR8Wu_1Y&index=1" data-layout="button_count"></div>
+      <div class="fb-share-button" data-href="https://www.youtube.com/watch?v=ji-gH_yXjGo" data-layout="button_count"></div>
     </div>
   </div>
   <div id="single-article-container"></div>
