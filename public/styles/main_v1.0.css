@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 body {
+  font-family: "Roboto";
+  font-weight: 400;
+  /* letter-spacing: 0rem; */
   background-color: rgb(20, 20, 20);
   margin: 0;
   display: flex;
@@ -14,6 +18,21 @@ body {
 
 main {
   flex: 1;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  height: 60vh;
+}
+
+.loader img {
+  height: 80px;
+  width: auto;
 }
 
 /* DO NOT EDIT - START --- Single article images slider */

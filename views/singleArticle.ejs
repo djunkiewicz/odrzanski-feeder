@@ -11,7 +11,9 @@
       month: "long",
       day: "numeric",
     }) %></p>
+    <% if (article.photo_paths.length > 1) { %>
     <button id="size-switch-btn" class="btn btn-outline-light btn-lg" onclick="toggleGallerySize(this)">Powiększ galerię</button>
+    <% } %>
     <div id="carousel-container" class="container">
       <div id="carousel-slider" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">
@@ -31,7 +33,7 @@
     <p class="article-content"><%= article.content %></p>
     <div class="end-group">
       <button class="btn btn-success btn-lg" onclick="history.back();">Powrót do aktualności</button>
-      <div class="fb-share-button" data-href="https://wedkarz.pro/blog/ryba-biala-jak-necic-i-utrzymac-rybe-w-lowisku" data-layout="button_count"></div>
+      <div class="fb-share-button" data-href="https://www.youtube.com/watch?v=f43nR8Wu_1Y&list=RDf43nR8Wu_1Y&index=1" data-layout="button_count"></div>
     </div>
   </div>
   <div id="single-article-container"></div>

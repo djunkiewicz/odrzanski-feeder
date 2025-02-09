@@ -27,12 +27,12 @@
     $('.loader').css('display', 'none');
     $('.content').css('display', 'block');
   })
-  if (!localStorage.getItem('cookiesAccepted')) {
+  if (!sessionStorage.getItem('cookiesAccepted')) {
     document.getElementById('cookie-banner').style.display = 'block';
   }
   document.getElementById('accept-cookie').addEventListener('click', function() {
     document.getElementById('cookie-banner').style.display = 'none';
-    localStorage.setItem('cookiesAccepted', 'true');
+    sessionStorage.setItem('cookiesAccepted', 'true');
   });
 </script>
 </body>
