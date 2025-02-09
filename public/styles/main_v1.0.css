@@ -8,36 +8,15 @@ body {
   color: white;
 }
 
+.content > .container {
+  background-color: rgb(35, 35, 35);
+}
+
 main {
   flex: 1;
 }
 
-/* .article-card {
-  background-color: rgb(0, 42, 64);
-} */
-
-/* .article-card img {
-  height: 400px;
-}*/
-
-img {
-  height: 400px;
-}
-
 /* DO NOT EDIT - START --- Single article images slider */
-.carousel img {
-  object-fit: contain;
-  height: auto;
-  height: 750px;
-  max-height: 750px;
-}
-
-.carousel {
-  width: 80%;
-}
-.carousel-item {
-  transition: transform 0.5s ease-in-out, opacity 1.3s ease;
-}
 
 #cookie-banner {
   position: fixed;

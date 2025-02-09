@@ -100,17 +100,18 @@ class Article {
     const title = document.createElement("h2");
     title.textContent = this.name;
 
-    const date = document.createElement("h3");
+    const date = document.createElement("p");
     date.textContent = this.creationDate.toLocaleDateString(
       "pl-PL",
       dateOptions
     );
 
-    const image = document.createElement("img");
-    image.src = this.photoPaths[0];
+    // const image = document.createElement("img");
+    // image.src = this.photoPaths[0];
 
     const content = document.createElement("p");
     content.innerHTML = this.content;
+    content.classList.add("article-content");
 
     const returnButton = document.createElement("a");
     returnButton.classList.add("btn", "btn-primary");
@@ -121,7 +122,7 @@ class Article {
 
     container.appendChild(title);
     container.appendChild(date);
-    container.appendChild(image);
+    // container.appendChild(image);
     container.appendChild(content);
     container.appendChild(returnButton);
 
