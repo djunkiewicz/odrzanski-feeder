@@ -36,6 +36,13 @@
   margin-left: 50px;
 }
 
+#about-photo {
+  width: 100%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
 @media (max-width: 1472px) {
   .simple-page #map {
     width: 600px;
