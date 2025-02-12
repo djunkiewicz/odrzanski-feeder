@@ -10,22 +10,41 @@
   font-size: 20px;
 }
 
-.simple-page img {
+.simple-page #map {
   width: 700px;
   height: auto;
   padding-left: 25px;
   padding-right: 25px;
 }
 
+#rules-list {
+  margin-top: 25px;
+}
+
+#rules-list li {
+  margin-bottom: 8px;
+}
+
+#rules-title {
+  color: rgb(0, 173, 14);
+  line-height: 2.5;
+}
+
+#regulations-attachment {
+  margin-top: 50px;
+  padding-bottom: 50px;
+  margin-left: 50px;
+}
+
 @media (max-width: 1472px) {
-  .simple-page img {
+  .simple-page #map {
     width: 600px;
     height: auto;
   }
 }
 
 @media (max-width: 768px) {
-  .simple-page img {
+  .simple-page #map {
     width: 100%;
     height: auto;
   }
