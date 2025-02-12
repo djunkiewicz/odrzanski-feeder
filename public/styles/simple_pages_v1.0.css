@@ -43,6 +43,11 @@
   padding-bottom: 50px;
 }
 
+#cookies-last-element {
+  margin: 0;
+  padding-bottom: 50px;
+}
+
 @media (max-width: 1472px) {
   .simple-page #map {
     width: 600px;
