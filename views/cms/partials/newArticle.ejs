@@ -4,7 +4,6 @@
 <% const keywordsTextHolder = keepData ? locals.originalReq.keywords : ""; %>
 <script src="https://cdn.tiny.cloud/1/5n4ag1bs932atn7n2xg3dlmmwq3litt917cyjziczcmbyebo/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-<h2>Wypełnij formularz NOWEGO artykułu</h2>
 <% if (locals.response && locals.response.validationStatus) { %>
 <div class="alert alert-success" role="alert">
   <h1>Pomyślnie dodano artykuł 🎉</h1>
@@ -17,9 +16,9 @@
     <li><%= element %></li>
     <% }) %>
   </ul>
-  <div class="alert alert-danger" role="alert">
-    UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
-  </div>
+</div>
+<div class="alert alert-danger" role="alert">
+  UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
 </div>
 <%}%>
  
@@ -30,7 +29,7 @@
 </div>
 <div class="mb-3">
   <label for="content" class="form-label">Treść artykułu</label>
-  <textarea class="form-control" id="content" name="content" rows="5"><%= contentTextHolder %></textarea>
+  <textarea class="form-control" id="content" name="content" rows="2"><%= contentTextHolder %></textarea>
 </div>
 <div class="mb-3">
   <label for="images" class="form-label">Dodaj zdjęcia do artykułu</label>
@@ -50,6 +49,7 @@
     selector: '#content',
     plugins: 'advlist table autolink lists link charmap preview hr anchor pagebreak',
     toolbar: 'undo redo | bold italic | fontsizeinput forecolor | alignleft aligncenter alignright | bullist numlist outdent indent | tableprops tablerowprops tablecellprops',
-    content_style: "body { font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: 400; }"
+    content_style: "body { font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: 400; }",
+    height: 500
   });
 </script>

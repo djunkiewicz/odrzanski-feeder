@@ -1,8 +1,10 @@
 <%- include('./partials/cmsHeader') %>
-<div class="container content" style="display: none;">
-  <h1>Poniżej możesz dodać nowy artykuł lub edytować juz istniejące.</h1>
-  <a class="btn btn-primary" href="/cms/articles?action=new" role="button">Dodaj nowy</a>
-  <a class="btn btn-primary" href="/cms/articles?action=edit" role="button">Edytuj istniejący</a>
+<div id="cms-articles" class="container content" style="display: none;">
+  <h2>Poniżej możesz dodać nowy artykuł lub edytować już istniejący.</h2>
+  <div class="switch">
+    <a class="btn <% if (locals.action !== "edit") { %>btn-success<% } else { %>btn-outline-success <% } %>  btn-lg" href="/cms/articles?action=new" role="button">Dodaj nowy</a>
+    <a class="btn <% if (locals.action === "edit") { %>btn-success<% } else { %>btn-outline-success <% } %> btn-lg" href="/cms/articles?action=edit" role="button">Edytuj istniejący</a>
+  </div>
   <% if (locals.action === "edit") { %>
   <%- include('./partials/editExistingArticle') %>
   <% } else { %>

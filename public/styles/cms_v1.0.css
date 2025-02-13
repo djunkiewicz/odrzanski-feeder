@@ -50,6 +50,22 @@
 }
 
 .content > .container {
-  background-color: rgb(73, 73, 73);
+  margin-top: 25px;
+  margin-bottom: 50px;
+  background-color: rgb(57, 57, 57);
   min-height: 10vh;
+}
+
+.switch {
+  display: flex;
+}
+
+.switch * {
+  flex: 1;
+  margin: 10px;
+}
+
+#cms-articles h2 {
+  margin-left: 25px;
+  padding-top: 25px;
 }
