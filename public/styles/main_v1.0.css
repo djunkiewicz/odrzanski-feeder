@@ -47,9 +47,10 @@ main {
   color: white;
   text-align: center;
   z-index: 1000;
-  height: 12vh;
+  height: fit-content;
   font-size: 16px;
   padding: 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
 
 #cookie-banner a {
