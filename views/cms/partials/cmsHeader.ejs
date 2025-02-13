@@ -12,12 +12,14 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1>Hello admin</h1>
-    <form action="/cms/logout" method="GET">
-      <button type="submit"> Wyloguj z CMS </button>
-    </form>
-    <a class="btn btn-primary" href="/cms/" role="button">Panel główny</a>
+  <div id="cms-header" class="container">
+    <h1>Witaj Administratorze!</h1>
+    <div class="menu">
+      <form action="/cms/logout" method="GET">
+        <button class="btn btn-warning" type="submit"> Wyloguj z CMS </button>
+      </form>
+      <a class="btn btn-info" href="/cms/" role="button">Panel główny</a>
+    </div>
   </div>
   <div class="loader">
     <img src="/media/loading.gif" alt="Ładowanie..." />
