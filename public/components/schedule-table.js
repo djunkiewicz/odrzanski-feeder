@@ -65,7 +65,6 @@ class ScheduleTable {
 
     return table;
   }
-
 }
 
 function createTableRow(data, index, indexColumnFlag) {
@@ -91,11 +90,11 @@ function createField(type, content, scope) {
 function resolveDiscipline(code) {
   const disciplineString = "".concat(
     (code & classicFeederMask) === classicFeederMask
-      ? "Feeder klasyczny\n"
+      ? "Feeder klasyczny,\n"
       : "",
-    (code & methodFeederMask) === methodFeederMask ? "Metoda\n" : "",
-    (code & spinningMask) === spinningMask ? "Spinning\n" : "",
-    (code & floatMask) === floatMask ? "Spławik\n" : ""
+    (code & methodFeederMask) === methodFeederMask ? "Metoda,\n" : "",
+    (code & spinningMask) === spinningMask ? "Spinning,\n" : "",
+    (code & floatMask) === floatMask ? "Spławik,\n" : ""
   );
 
   return disciplineString;

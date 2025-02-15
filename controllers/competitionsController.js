@@ -100,8 +100,8 @@ function validateCompetitionRequest(body) {
   const message = [];
   const conditions = [
     new ValidationCondition(
-      (body) => body.name.length > 15,
-      "Nieprawidłowa nazwa wydarzenia. Nazwa musi zawierać minimum 15 znaków."
+      (body) => body.name.length > 10,
+      "Nieprawidłowa nazwa wydarzenia. Nazwa musi zawierać minimum 10 znaków."
     ),
     new ValidationCondition(
       (body) =>

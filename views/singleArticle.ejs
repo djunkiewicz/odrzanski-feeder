@@ -11,15 +11,18 @@
       month: "long",
       day: "numeric",
     }) %></p>
-    <% if (article.photo_paths.length > 1) { %>
+    <% if (article.photo_paths.length >= 1 && article.photo_paths[0] !== '/images/no_photo.jpg') { %>
     <button id="size-switch-btn" class="btn btn-outline-light btn-lg" onclick="toggleGallerySize(this)">Powiększ galerię</button>
     <% } %>
     <div id="carousel-container" class="container">
       <div id="carousel-slider" class="carousel slide" data-bs-ride="false">
+        <% if (article.photo_paths.length > 1 && article.photo_paths[0] !== '/images/no_photo.jpg') { %>
         <div class="carousel-indicators">
         </div>
+        <% } %>
         <div class="carousel-inner">
         </div>
+        <% if (article.photo_paths.length > 1 && article.photo_paths[0] !== '/images/no_photo.jpg') { %>
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel-slider" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -28,9 +31,10 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
+        <% } %>
       </div>
     </div>
-    <p class="article-content"><%- article.content %></p>
+    <div class="article-content"><%- article.content %></div>
     <div class="end-group">
       <button class="btn btn-success btn-lg" onclick="history.back();">Powrót do aktualności</button>
       <div class="fb-share-button" data-href="https://www.youtube.com/watch?v=ji-gH_yXjGo" data-layout="button_count"></div>
@@ -78,7 +82,8 @@
   // $("#single-article-container").append(article.getDetailedPage());
   let galleryZoom = false;
 
-  if (article.photoPaths.length === 1) {
+  console.log(article);
+  if (article.photoPaths.length === 1 && article.photoPaths[0] === '/images/no_photo.jpg') {
     $("#carousel-container").remove();
   } else {
     $(".carousel-indicators").append(createCarouselIndicator(true, 0, "#carousel-slider"));
