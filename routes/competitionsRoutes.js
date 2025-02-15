@@ -1,7 +1,6 @@
 const competitionsController = require("../controllers/competitionsController");
 const defaultCriteria = {
-  // year: new Date().getFullYear().toString(), TODO: uncomment
-  year: 2024,
+  year: new Date().getFullYear().toString(),
   disciplineFeeder: "on",
   disciplineFloat: "on",
   disciplineSpinning: "on",

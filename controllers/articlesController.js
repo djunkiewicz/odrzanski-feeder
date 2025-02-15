@@ -118,12 +118,12 @@ function validateArticleRequest(body) {
   const message = [];
   const conditions = [
     new ValidationCondition(
-      (body) => body.name.length > 5,
-      "Invalid name, minimum 5 characters"
+      (body) => body.name.length > 15,
+      "Nieprawidłowa nazwa artykułu. Nazwa musi zawierać minimum 15 znaków."
     ),
     new ValidationCondition(
-      (body) => body.content.length > 6,
-      "Article content is too short, minimum 6 characters"
+      (body) => body.content.length > 20,
+      "Zawartość artykułu jest zbyt krótka, poprawna zawartość zawiera minimum 20 znaków."
     ),
   ];
   for (const condition of conditions) {

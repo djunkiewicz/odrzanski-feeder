@@ -100,8 +100,8 @@ function validateCompetitionRequest(body) {
   const message = [];
   const conditions = [
     new ValidationCondition(
-      (body) => body.name.length > 5,
-      "Invalid name, minimum 5 characters."
+      (body) => body.name.length > 15,
+      "Nieprawidłowa nazwa wydarzenia. Nazwa musi zawierać minimum 15 znaków."
     ),
     new ValidationCondition(
       (body) =>
@@ -109,16 +109,16 @@ function validateCompetitionRequest(body) {
           body.disciplineMethodFeeder ||
           body.disciplineFloat ||
           body.disciplineSpinning) !== undefined,
-      "Musisz wybrac przynajmniej jedną dyscyplinę."
+      "Musisz wybrać przynajmniej jedną dyscyplinę."
     ),
     new ValidationCondition(function (body) {
       let tempLocation =
         body.selectLocation === "1" ? body.location : body.selectLocation;
       return tempLocation != "";
-    }, "Musisz wybrac miejsce zawodów."),
+    }, "Musisz wybrać miejsce zawodów."),
     new ValidationCondition(
       (body) => body.scope != "",
-      "Musisz wybrac kategorię zawodów."
+      "Musisz wybrać kategorię zawodów."
     ),
     new ValidationCondition(
       (body) => body.dateTimePicker != "",

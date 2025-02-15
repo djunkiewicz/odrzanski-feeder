@@ -9,7 +9,7 @@
         <div id="year-select" class="col-md-3 select">
           <label for="year" class="form-label">Sezon</label>
           <select class="form-select" id="year" name="year" required="">
-            <% for( let year = new Date().getFullYear(); year >= 2023; year-- ) { %>
+            <% for( let year = new Date().getFullYear(); year >= 2025; year-- ) { %>
             <option <% if (locals.criteria && locals.criteria.year === `${year}`) { %> selected <% } %>><%= year %></option>
             <% } %>
             <option <% if (locals.criteria && locals.criteria.year === 'Wszystko') { %> selected <% } %>>Wszystko</option>
