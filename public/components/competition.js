@@ -27,10 +27,11 @@ class Competition {
     title.textContent = this.name;
 
     const date = document.createElement("h4");
-    date.textContent = this.creationDate.toLocaleDateString(
-      "pl-PL",
-      dateOptions
-    );
+    date.textContent =
+      "dzień: " +
+      this.eventDate.toLocaleDateString("pl-PL", dateOptions) +
+      " ---> zbiórka: " +
+      this.eventTime;
 
     const editBtn = document.createElement("a");
     editBtn.classList.add("btn", "btn-info");

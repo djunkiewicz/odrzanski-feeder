@@ -68,6 +68,7 @@
 
       <button id="search-button" class="w-100 btn btn-success btn-lg" type="submit">SZUKAJ</button>
     </form>
+    <div id="schedule-table-wrapper" style="overflow-x: auto;"></div>
   </div>
   <% if(!locals.competitions) { %>
   <p>Brak dostępnego harmonogramu zawodów</p>
@@ -85,7 +86,7 @@
       tableHeadClassList: ["align-middle", "table-success"],
       tableBodyClassList: ["competitions-table-body"]
     });
-  $("#competitions-container").append(scheduleTable.getTable());
+  $("#schedule-table-wrapper").append(scheduleTable.getTable());
 </script>
 
 <%- include("./partials/footer.ejs")%>
