@@ -59,7 +59,7 @@ class Article {
 
   getCmsCard() {
     const articleCard = document.createElement("div");
-    articleCard.classList.add("cms-article-card");
+    articleCard.classList.add("cms-element-card");
 
     const title = document.createElement("h3");
     title.textContent = this.name;

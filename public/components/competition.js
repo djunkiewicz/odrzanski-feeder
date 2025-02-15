@@ -21,12 +21,12 @@ class Competition {
 
   getCmsCard() {
     const competitionCard = document.createElement("div");
-    competitionCard.classList.add("article-card");
+    competitionCard.classList.add("cms-element-card");
 
-    const title = document.createElement("h2");
+    const title = document.createElement("h3");
     title.textContent = this.name;
 
-    const date = document.createElement("h3");
+    const date = document.createElement("h4");
     date.textContent = this.creationDate.toLocaleDateString(
       "pl-PL",
       dateOptions

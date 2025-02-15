@@ -11,10 +11,6 @@
 <% const notesTextHolder = keepData ? locals.originalReq.notes : locals.competitionToEdit.notes; %>
 <% const idBuffor = keepData ? locals.originalReq.id : locals.competitionToEdit.id; %>
 
-
-
-<h1>Wypełnij formularz by edytować wybrane wydarzenie</h1>
-
 <% if (locals.response && locals.response.validationStatus) { %>
 <div class="alert alert-success" role="alert">
   <h1>Pomyślnie edytowano wydarzenie 🎉</h1>
@@ -33,12 +29,12 @@
 <form action="/cms/competitions/edit" method="POST">
   <input type="hidden" name="id" value="<%= idBuffor %>">
 <div class="mb-3">
-  <label for="name" class="form-label">Nazwa wydarzenia</label>
+  <label for="name" class="form-label cms-form-label">Nazwa wydarzenia</label>
   <input type="text" value="<%= nameTextHolder %>" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę zawodów lub innego wydarzenia" required minlength="10" maxlength="100">
 </div>
 
-<div class="mb-3">
-  <h2>Dozwolone dyscypliny</h2>
+<div class="mb-3 segment-form">
+  <label class="cms-form-label">Dozwolone dyscypliny</label>
   <div class="form-check">
     <input class="form-check-input" type="checkbox" name="disciplineFeeder" id="discipline-feeder" <% if (feederCheckHolder === "on") { %>checked<% } %>>
     <label class="form-check-label" for="discipline-feeder">
@@ -65,8 +61,8 @@
   </div>
 </div>
 
-<div class="mb-3">
-  <h2>Miejsce/Łowisko</h2>
+<div class="mb-3 segment-form">
+  <label class="cms-form-label">Miejsce/Łowisko</label>
   <select class="form-select" id="select-location" name="selectLocation" aria-label="Default select example">
     <option value="" selected>Wybierz...</option>
     <option <% if (selectLocationHolder === "1") { %>selected<% } %> value="1">Wprowadź łowisko z poza listy</option>
@@ -79,14 +75,13 @@
     <option <% if (selectLocationHolder === "Stawy w Leśnicy") { %>selected<% } %> value="Stawy w Leśnicy">Stawy w Leśnicy</option>
     <option <% if (selectLocationHolder === "Zbiornik w Łagiewnikach") { %>selected<% } %> value="Zbiornik w Łagiewnikach">Zbiornik w Łagiewnikach</option>
   </select>
-  <div class="mb-3">
-    <label for="location" class="form-label">Miejsce</label>
+  <div class="mb-3 mt-2">
     <input type="text" class="form-control" id="location" name="location" placeholder="Wprowadź nazwę łowiska" value="<%= locationTextHolder %>">
   </div>
 </div>
 
 <div class="mb-3">
-  <h2>Kategoria</h2>
+  <label class="cms-form-label">Kategoria</label>
   <select class="form-select" id="scope" name="scope" aria-label="Default select example">
     <option value="" selected>Wybierz...</option>
     <option <% if (scopeHolder === "KLUBOWE") { %>selected<% } %> value="KLUBOWE">KLUBOWE</option>
@@ -95,16 +90,16 @@
   </select>
 </div>
 
-<div class="mb-3">
-  <h2>Data wydarzenia i godzina zbiórki</h2>
-  <input value="<%= dateTimePickerHolder %>" type="datetime-local" id="date-time-picker" name="dateTimePicker" required>
+<div class="mb-3 segment-form">
+  <label class="cms-form-label">Data wydarzenia i godzina zbiórki</label>
+  <input value="<%= dateTimePickerHolder %>" type="datetime-local" id="date-time-picker" name="dateTimePicker" style="display:block; margin-top: 5px; font-size: 18px;" required>
 </div>
 
 <div class="mb-3">
-  <label for="notes" class="form-label">Uwagi</label>
+  <label for="notes" class="form-label cms-form-label">Uwagi</label>
   <textarea class="form-control" id="notes" name="notes" rows="2"><%= notesTextHolder %></textarea>
 </div>
 
-<button type="submit" class="btn btn-primary">Edytuj wydarzenie</button>
+<button type="submit" class="btn btn-primary submit btn-lg">Edytuj wydarzenie</button>
 
 </form>

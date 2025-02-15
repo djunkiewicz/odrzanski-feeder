@@ -125,7 +125,7 @@
   color: black;
 }
 
-.cms-article-card {
+.cms-element-card {
   margin-left: 50px;
   margin-right: 50px;
   margin-bottom: 15px;
@@ -133,11 +133,11 @@
   border: solid 1px white;
 }
 
-.cms-article-card * {
+.cms-element-card * {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.cms-article-card:hover {
+.cms-element-card:hover {
   background-color: rgb(37, 48, 37);
 }
