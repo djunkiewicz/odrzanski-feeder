@@ -68,12 +68,13 @@
   margin: 10px;
 }
 
+#cms-competitions h2,
 #cms-articles h2 {
   margin-left: 25px;
   padding-top: 25px;
 }
 
-.article-form-label {
+.cms-form-label {
   font-size: 20px;
   margin-left: 2.5px;
 }
@@ -81,8 +82,11 @@
 #name,
 #images,
 #images-form-check,
-#images-form {
-  margin-bottom: 30px;
+#images-form,
+#scope,
+#discipline-form,
+.segment-form {
+  margin-bottom: 30px !important;
 }
 
 #images-form {

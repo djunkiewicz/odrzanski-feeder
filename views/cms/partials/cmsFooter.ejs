@@ -1,4 +1,3 @@
-
 </main>
 <div class="container">
 </div>
@@ -9,6 +8,23 @@
     $('.loader').css('display', 'none');
     $('.content').css('display', 'block');
   })
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectLocation = document.getElementById("select-location");
+    const locationInput = document.getElementById("location").closest(".mb-3");
+
+    function toggleLocationInput() {
+      if (selectLocation.value === "1") {
+        locationInput.style.display = "block";
+      } else {
+        locationInput.style.display = "none";
+      }
+    }
+
+    toggleLocationInput();
+    selectLocation.addEventListener("change", toggleLocationInput);
+  });
 </script>
 </body>
 
