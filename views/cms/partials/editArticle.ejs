@@ -5,7 +5,6 @@
 <% const idBuffor = keepData ? locals.originalReq.id : locals.articleToEdit.id; %>
 <script src="https://cdn.tiny.cloud/1/5n4ag1bs932atn7n2xg3dlmmwq3litt917cyjziczcmbyebo/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-<h2>Wypełnij formularz by edytować wybrany artykuł</h2>
 <% if (locals.response && locals.response.validationStatus) { %>
 <div class="alert alert-success" role="alert">
   <h1>Pomyślnie zaktualizowano artykuł 🎉</h1>
@@ -18,44 +17,46 @@
     <li><%= element %></li>
     <% }) %>
   </ul>
-  <div class="alert alert-danger" role="alert">
-    UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
-  </div>
+</div>
+<div class="alert alert-danger" role="alert">
+  UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
 </div>
 <%}%>
  
 <form action="/cms/articles/edit" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<%= idBuffor %>">
 <div class="mb-3">
-  <label for="name" class="form-label">Nazwa artykułu</label>
+  <label for="name" class="form-label article-form-label">Nazwa artykułu</label>
   <input type="text" class="form-control" id="name" name="name" value="<%= nameTextHolder %>">
 </div>
 <div class="mb-3">
-  <label for="content" class="form-label">Treść artykułu</label>
+  <label for="content" class="form-label article-form-label">Treść artykułu</label>
   <textarea class="form-control" id="content" name="content" rows="5"><%= contentTextHolder %></textarea>
 </div>
-<div class="mb-3">
-  <label for="images" class="form-label">Dodaj zdjęcia do artykułu</label>
-  <input type="file" class="form-control" id="images" name="images" accept="image/png, image/jpeg" multiple>
+<div id class="mb-3">
+  <label for="images" class="form-label article-form-label">Dodaj zdjęcia do artykułu</label>
+  <input type="file" class="form-control" id="images_edit" name="images" accept="image/png, image/jpeg" multiple>
+</div>
+<div id="images-form">
   <div class="form-check">
     <input class="form-check-input" type="radio" name="mode" id="append" value="append" <% if (!locals.originalReq || (locals.originalReq && locals.originalReq.mode === "append")) { %> checked <% } %>>
     <label class="form-check-label" for="append">
       Dodaj do istniejących </label>
   </div>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="mode" id="overwrite" value="overwrite" <% if (locals.originalReq && locals.originalReq.mode === "overwrite") { %> checked <% } %>>
-  <label class="form-check-label" for="overwrite">
-    Nadpisz
-  </label>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="mode" id="overwrite" value="overwrite" <% if (locals.originalReq && locals.originalReq.mode === "overwrite") { %> checked <% } %>>
+    <label class="form-check-label" for="overwrite">
+      Nadpisz
+    </label>
+  </div>
 </div>
 <div class="mb-3">
-  <label for="keywords" class="form-label">Słowa kluczowe*</label>
+  <label for="keywords" class="form-label article-form-label">Słowa kluczowe*</label>
   <input type="text" class="form-control" id="keywords" name="keywords" value="<%= keywordsTextHolder %>">
 </div>
-<p>* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
-<p>Przykład: pzw zawody feeder dzień dziecka</p>
-<button type="submit" class="btn btn-primary">Edytuj artykuł</button>
+<p class="article-form-label">* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
+<p class="article-form-label">Przykład: pzw zawody feeder dzień dziecka</p>
+<button type="submit" class="btn btn-success btn-lg submit">Edytuj artykuł</button>
 </form>
 
 <script>

@@ -79,8 +79,18 @@
 }
 
 #name,
-#images {
+#images,
+#images-form-check,
+#images-form {
   margin-bottom: 30px;
+}
+
+#images-form {
+  margin-left: 5px;
+}
+
+#images_edit {
+  margin-bottom: 10px;
 }
 
 .tox-tinymce {
