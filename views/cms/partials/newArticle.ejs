@@ -6,16 +6,16 @@
 
 <% if (locals.response && locals.response.validationStatus) { %>
 <div class="alert alert-success" role="alert">
-  <h1>Pomyślnie dodano artykuł 🎉</h1>
+  <h2>Pomyślnie dodano artykuł 🎉</h1>
 </div>
 <% } else if(locals.response && !locals.response.validationStatus) { %>
 <div class="alert alert-warning" role="alert">
-  <h1>Nie udało się dodać artykułu:</h1>
-  <ul>
-    <% locals.response.message.forEach(element => { %>
-    <li><%= element %></li>
-    <% }) %>
-  </ul>
+  <h2>Nie udało się dodać artykułu:</h1>
+    <ul>
+      <% locals.response.message.forEach(element => { %>
+      <li><%= element %></li>
+      <% }) %>
+    </ul>
 </div>
 <div class="alert alert-danger" role="alert">
   UWAGA! Musisz ponownie załączyć zdjęcia do artykułu!
@@ -24,24 +24,24 @@
  
 <form action="/cms/articles/new" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
-    <label for="name" class="form-label">Nazwa artykułu</label>
+    <label for="name" class="form-label article-form-label">Nazwa artykułu</label>
     <input type="text" class="form-control" id="name" name="name" value="<%= nameTextHolder %>">
 </div>
 <div class="mb-3">
-  <label for="content" class="form-label">Treść artykułu</label>
+  <label for="content" class="form-label article-form-label">Treść artykułu</label>
   <textarea class="form-control" id="content" name="content" rows="2"><%= contentTextHolder %></textarea>
 </div>
 <div class="mb-3">
-  <label for="images" class="form-label">Dodaj zdjęcia do artykułu</label>
+  <label for="images" class="form-label article-form-label">Dodaj zdjęcia do artykułu</label>
   <input type="file" class="form-control" id="images" name="images" accept="image/png, image/jpeg" multiple>
 </div>
 <div class="mb-3">
-  <label for="keywords" class="form-label">Słowa kluczowe*</label>
+  <label for="keywords" class="form-label article-form-label">Słowa kluczowe*</label>
   <input type="text" class="form-control" id="keywords" name="keywords" value="<%= keywordsTextHolder %>">
 </div>
-<p>* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
-<p>Przykład: pzw zawody feeder dzień dziecka</p>
-<button type="submit" class="btn btn-primary">Dodaj artykuł</button>
+<p class="article-form-label">* Pole opcjonalne - wypisz słowa kluczowe odzielone spacjami lub zostaw to pole puste.</p>
+<p class="article-form-label">Przykład: pzw zawody feeder dzień dziecka</p>
+<button type="submit" class="btn btn-success btn-lg submit">Dodaj artykuł</button>
 </form>
 
 <script>

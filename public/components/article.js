@@ -59,12 +59,12 @@ class Article {
 
   getCmsCard() {
     const articleCard = document.createElement("div");
-    articleCard.classList.add("article-card");
+    articleCard.classList.add("cms-article-card");
 
-    const title = document.createElement("h2");
+    const title = document.createElement("h3");
     title.textContent = this.name;
 
-    const date = document.createElement("h3");
+    const date = document.createElement("h4");
     date.textContent = this.creationDate.toLocaleDateString(
       "pl-PL",
       dateOptions

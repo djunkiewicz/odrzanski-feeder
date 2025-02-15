@@ -58,6 +58,9 @@
 
 .switch {
   display: flex;
+  padding-bottom: 25px;
+  border-bottom: solid 1px grey;
+  margin-bottom: 25px;
 }
 
 .switch * {
@@ -68,4 +71,59 @@
 #cms-articles h2 {
   margin-left: 25px;
   padding-top: 25px;
+}
+
+.article-form-label {
+  font-size: 20px;
+  margin-left: 2.5px;
+}
+
+#name,
+#images {
+  margin-bottom: 30px;
+}
+
+.tox-tinymce {
+  margin-bottom: 30px;
+}
+
+.submit {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+#pagination-container {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.paginationjs {
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 25px;
+}
+
+#staticBackdrop {
+  color: black;
+}
+
+.cms-article-card {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: solid 1px white;
+}
+
+.cms-article-card * {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.cms-article-card:hover {
+  background-color: rgb(37, 48, 37);
 }
