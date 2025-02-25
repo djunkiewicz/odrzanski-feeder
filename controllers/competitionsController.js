@@ -59,8 +59,13 @@ async function getCompetitionById(id) {
   if ((competition.discipline & floatMask) === floatMask) {
     competition.disciplineFloat = "on";
   }
+  // console.log(competition.event_date);
   const [day, month, year] = competition.event_date
-    .toLocaleDateString()
+    .toLocaleDateString("pl-PL", {
+      day: "2-digit",
+      year: "numeric",
+      month: "numeric",
+    })
     .slice(0, 10)
     .split(".");
   const dateTimePicker = `${year}-${month}-${day}T${String(
